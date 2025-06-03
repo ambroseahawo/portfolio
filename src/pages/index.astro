@@ -1,0 +1,84 @@
+---
+import ArticleCard from "../components/ArticleCard.astro"
+import Header from "../components/Header.astro"
+import Hero from "../components/Hero.astro"
+import Sidebar from "../components/Sidebar.astro"
+import Layout from "../layouts/Layout.astro"
+
+const articles = [
+  {
+    title: "An Interactive Guide to Flexbox",
+    date: "Dec 24, 2023",
+    image: "/images/post-thumb-01.jpg",
+    excerpt:
+      "Flexbox is a remarkably flexible layout mode. When we understand how it works, we can build responsive designs that rearrange themselves as needed.",
+    slug: "interactive-guide-flexbox",
+  },
+  {
+    title: "Fuzzy Logic in a Hurry",
+    date: "Dec 24, 2023",
+    image: "/images/post-thumb-02.jpg",
+    excerpt:
+      "Flexbox is a remarkably flexible layout mode. When we understand how it works, we can build responsive designs that rearrange themselves as needed.",
+    slug: "fuzzy-logic-hurry",
+  },
+]
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout title="DevSpace - Home">
+  <Sidebar />
+  <main class="c08dn c4a0m cajes">
+    <div class="csbbd c0bc4 cpphc cglmn c8pgj cfwvb">
+      <Header />
+      <Hero />
+
+      <!-- Content -->
+      <div class="c6969 c9xin cr8w3 ci4j9 clwia cpqam c4a0m">
+        <!-- Middle area -->
+        <div class="c4a0m">
+          <div class="c8b8k">
+            <div class="c7qcc">
+              <!-- Latest Articles -->
+              <section>
+                <h2 class="cpynq c670g c8dzi cec5b">Latest Articles</h2>
+
+                <!-- Filters -->
+                <ul class="cg3vi crdpf cnxqt c8z7y cme8e cfwvb">
+                  <li class="cz4pw c59mu">
+                    <a
+                      class="cxmc9 cgygf cg0ht cnp10 ch63g chipd cen0e"
+                      href="#0">Coding</a
+                    >
+                  </li>
+                  <li class="cz4pw c59mu">
+                    <a class="cts6h cb9ru cxslc c2bb0 chipd cen0e" href="#0"
+                      >Startups</a
+                    >
+                  </li>
+                  <li class="cz4pw c59mu">
+                    <a class="cts6h cb9ru cxslc c2bb0 chipd cen0e" href="#0"
+                      >Tutorials</a
+                    >
+                  </li>
+                  <li class="cz4pw c59mu">
+                    <a class="cts6h cb9ru cxslc c2bb0 chipd cen0e" href="#0"
+                      >Indie Hacking</a
+                    >
+                  </li>
+                </ul>
+
+                <!-- Articles list -->
+                <div>
+                  {articles.map((article) => <ArticleCard {...article} />)}
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,35 @@
+---
+import "../styles/global.css"
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!-- <link href="/style.css" rel="stylesheet" /> -->
+    <script src="/theme.js" defer></script>
+  </head>
+  <body class="c81c8 coo5n ce3nz cg0ht cpw1o cngo2 c9mf7">
+    <div class="cfbgr cpphc">
+      <div class="ckb2r cfwvb">
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
