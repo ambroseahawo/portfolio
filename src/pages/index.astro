@@ -1,8 +1,12 @@
 ---
 import ArticleCard from "../components/ArticleCard.astro"
+import Footer from "../components/Footer.astro"
 import Header from "../components/Header.astro"
 import Hero from "../components/Hero.astro"
-import Sidebar from "../components/Sidebar.astro"
+import NavigationBar from "../components/NavigationBar.astro"
+import OpenSource from "../components/OpenSource.astro"
+import PopularTalks from "../components/PopularTalks.astro"
+import RightSideBar from "../components/RightSideBar.astro"
 import Layout from "../layouts/Layout.astro"
 
 const articles = [
@@ -29,7 +33,7 @@ const articles = [
 ---
 
 <Layout title="DevSpace - Home">
-  <Sidebar />
+  <NavigationBar />
   <main class="c08dn c4a0m cajes">
     <div class="csbbd c0bc4 cpphc cglmn c8pgj cfwvb">
       <Header />
@@ -75,10 +79,21 @@ const articles = [
                   {articles.map((article) => <ArticleCard {...article} />)}
                 </div>
               </section>
+
+              <!-- Popular Talks -->
+              <PopularTalks />
+
+              <!-- Open Source -->
+              <OpenSource />
             </div>
           </div>
         </div>
+
+        <!-- right sidebar -->
+        <RightSideBar />
       </div>
+
+      <Footer />
     </div>
   </main>
 </Layout>
