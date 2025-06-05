@@ -1,16 +1,34 @@
 ---
 const currentPath = Astro.url.pathname
+const isHomeActive =
+  currentPath === "/" || currentPath.startsWith("/infranotes/")
 ---
 
 <div class="cg3vi cax03 c5e9s cadmo cqmvi csb3e cxxfw c9cru c70js cfydh c5zj3">
   <div class="cpk71 co9go c9hv0 c0bc4 cglmn cfwvb">
-    <div class="cew4t"></div>
+    <div class="cew4t">
+      {
+        currentPath !== "/" && (
+          <div class="cfup8 cst8n cfwvb">
+            <a href="/">
+              <img
+                class="c3iz2"
+                src="/images/me.png"
+                width="32"
+                height="32"
+                alt="Me"
+              />
+            </a>
+          </div>
+        )
+      }
+    </div>
     <div class="c5a0p cew4t cfwvb c4a0m">
       <nav class="c8pgj">
         <ul class="c9gi4">
           <li class="cgktm">
             <a
-              class={`c5a0p chugl c53su c5c77 c8pgj cfwvb cq87d ${currentPath === "/" ? "cgla5 cjg8k cj6ii cfup8 cdxil csov4" : "c4ugg csbvt cpvt7 cfup8 crnoq"}`}
+              class={`c5a0p chugl c53su c5c77 c8pgj cfwvb cq87d ${isHomeActive ? "cgla5 cjg8k cj6ii cfup8 cdxil csov4" : "c4ugg csbvt cpvt7 cfup8 crnoq"}`}
               href="/"
             >
               <span class="c4g5b">Home</span>
