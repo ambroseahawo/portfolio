@@ -5,7 +5,7 @@
   font-weight: 500;
   font-style: normal;
   font-display: fallback;
-  src: url(fonts/Aspekta-500.woff2)format("woff2")
+  src: url(/fonts/Aspekta-500.woff2)format("woff2")
 }
 
 @font-face {
@@ -13,7 +13,7 @@
   font-weight: 650;
   font-style: normal;
   font-display: fallback;
-  src: url(fonts/Aspekta-650.woff2)format("woff2")
+  src: url(/fonts/Aspekta-650.woff2)format("woff2")
 }
 
 *,
