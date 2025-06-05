@@ -1,3 +1,7 @@
+---
+const currentPath = Astro.url.pathname
+---
+
 <aside class="cd6k2 cf0x4 csb3e">
   <div class="c92wf">
     <!-- Newsletter widget -->
@@ -80,18 +84,72 @@
       </p>
     </div>
 
-    <!-- E-Book widget -->
-    <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi">
-      <div class="cpynq c670g c41ht cec5b">Free E-Book</div>
-      <div class="c41ht">
-        <img
-          class="cz5kb czz51 c46gp cpe17"
-          src="/images/book.png"
-          width="148"
-          height="190"
-          alt="Book"
-        />
-      </div>
-    </div>
+    {
+      currentPath.startsWith("/infranotes/") ? (
+        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi">
+          <div class="cpynq c670g cec5b">Popular Posts</div>
+          <ul class="c3y7y">
+            <li class="cz5kb">
+              <span class="chugl cfxlx">—</span>{" "}
+              <a
+                class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cpynq c670g cofma cz5kb c5c77 cn2yf cme8e"
+                href="post.html"
+              >
+                Writing My First Security Blogpost
+              </a>
+            </li>
+            <li class="cz5kb">
+              <span class="chugl cfxlx">—</span>{" "}
+              <a
+                class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cpynq c670g cofma cz5kb c5c77 cn2yf cme8e"
+                href="post.html"
+              >
+                JavaScript print Events
+              </a>
+            </li>
+            <li class="cz5kb">
+              <span class="chugl cfxlx">—</span>{" "}
+              <a
+                class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cpynq c670g cofma cz5kb c5c77 cn2yf cme8e"
+                href="post.html"
+              >
+                How to Prototype with JavaScript
+              </a>
+            </li>
+            <li class="cz5kb">
+              <span class="chugl cfxlx">—</span>{" "}
+              <a
+                class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cpynq c670g cofma cz5kb c5c77 cn2yf cme8e"
+                href="post.html"
+              >
+                Fuzzy Logic in a Hurry
+              </a>
+            </li>
+            <li class="cz5kb">
+              <span class="chugl cfxlx">—</span>{" "}
+              <a
+                class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cpynq c670g cofma cz5kb c5c77 cn2yf cme8e"
+                href="post.html"
+              >
+                An Interactive Guide to Flexbox
+              </a>
+            </li>
+          </ul>
+        </div>
+      ) : (
+        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi">
+          <div class="cpynq c670g c41ht cec5b">Free E-Book</div>
+          <div class="c41ht">
+            <img
+              class="cz5kb czz51 c46gp cpe17"
+              src="/images/book.png"
+              width="148"
+              height="190"
+              alt="Book"
+            />
+          </div>
+        </div>
+      )
+    }
   </div>
 </aside>
