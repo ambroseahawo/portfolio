@@ -1,5 +1,7 @@
 ---
-import ArticleCard from "../components/ArticleCard.astro"
+import type { CollectionEntry } from "astro:content"
+import { getCollection } from "astro:content"
+import ArticlesList from "../components/ArticlesList.astro"
 import Footer from "../components/Footer.astro"
 import Header from "../components/Header.astro"
 import Hero from "../components/Hero.astro"
@@ -9,24 +11,12 @@ import PopularTalks from "../components/PopularTalks.astro"
 import RightSideBar from "../components/RightSideBar.astro"
 import Layout from "../layouts/Layout.astro"
 
-const articles = [
-  {
-    title: "An Interactive Guide to Flexbox",
-    date: "Dec 24, 2023",
-    image: "/images/post-thumb-01.jpg",
-    excerpt:
-      "Flexbox is a remarkably flexible layout mode. When we understand how it works, we can build responsive designs that rearrange themselves as needed.",
-    slug: "interactive-guide-flexbox",
-  },
-  {
-    title: "Fuzzy Logic in a Hurry",
-    date: "Dec 24, 2023",
-    image: "/images/post-thumb-02.jpg",
-    excerpt:
-      "Flexbox is a remarkably flexible layout mode. When we understand how it works, we can build responsive designs that rearrange themselves as needed.",
-    slug: "fuzzy-logic-hurry",
-  },
-]
+const articles = await getCollection("articles")
+// Sort articles by publishedAt date in descending order
+const sortedArticles = articles.sort(
+  (a: CollectionEntry<"articles">, b: CollectionEntry<"articles">) =>
+    b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+)
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -65,9 +55,7 @@ const articles = [
                 </ul>
 
                 <!-- Articles list -->
-                <div>
-                  {articles.map((article) => <ArticleCard {...article} />)}
-                </div>
+                <ArticlesList articles={sortedArticles} />
               </section>
 
               <!-- Popular Talks -->

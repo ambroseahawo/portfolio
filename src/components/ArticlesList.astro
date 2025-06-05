@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from "astro:content"
+import ArticleCard from "./ArticleCard.astro"
+
+interface Props {
+  articles: CollectionEntry<"articles">[]
+}
+
+const { articles } = Astro.props
+---
+
+<div>
+  {
+    articles.map((article) => (
+      <ArticleCard
+        title={article.data.title}
+        date={article.data.publishedAt.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })}
+        image={article.data.coverImage}
+        excerpt={article.data.excerpt}
+        slug={article.slug}
+      />
+    ))
+  }
+</div>
