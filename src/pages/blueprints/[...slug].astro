@@ -16,11 +16,7 @@ export async function getStaticPaths() {
   }))
 }
 
-type Props = {
-  article: CollectionEntry<"articles">
-}
-
-const { article } = Astro.props
+const { article } = Astro.props as { article: CollectionEntry<"articles"> }
 // const { Content } = await article.render()
 
 let htmlContent = ""
