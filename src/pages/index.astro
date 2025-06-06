@@ -2,13 +2,8 @@
 import type { CollectionEntry } from "astro:content"
 import { getCollection } from "astro:content"
 import ArticlesList from "../components/ArticlesList.astro"
-import Footer from "../components/Footer.astro"
-import Header from "../components/Header.astro"
-import Hero from "../components/Hero.astro"
-import NavigationBar from "../components/NavigationBar.astro"
 import OpenSource from "../components/OpenSource.astro"
 import PopularTalks from "../components/PopularTalks.astro"
-import RightSideBar from "../components/RightSideBar.astro"
 import Layout from "../layouts/Layout.astro"
 
 const articles = await getCollection("articles")
@@ -23,55 +18,37 @@ const sortedArticles = articles.sort(
 ---
 
 <Layout title="DevSpace - Home">
-  <NavigationBar />
-  <main class="c08dn c4a0m cajes">
-    <div class="csbbd c0bc4 cpphc cglmn c8pgj cfwvb">
-      <Header />
-      <Hero />
+  <div class="c4a0m">
+    <div class="c8b8k">
+      <div class="c7qcc">
+        <!-- Latest Articles -->
+        <section>
+          <h2 class="cpynq c670g c8dzi cec5b">Latest Articles</h2>
 
-      <!-- Content -->
-      <div class="c6969 c9xin cr8w3 ci4j9 clwia cpqam c4a0m">
-        <!-- Middle area -->
-        <div class="c4a0m">
-          <div class="c8b8k">
-            <div class="c7qcc">
-              <!-- Latest Articles -->
-              <section>
-                <h2 class="cpynq c670g c8dzi cec5b">Latest Articles</h2>
+          <!-- Filters -->
+          <ul class="cg3vi crdpf cnxqt c8z7y cme8e cfwvb">
+            <li class="cz4pw c59mu">
+              <a class="cxmc9 cgygf cg0ht cnp10 ch63g chipd cen0e" href="#0"
+                >Coding</a
+              >
+            </li>
+            <li class="cz4pw c59mu">
+              <a class="cts6h cb9ru cxslc c2bb0 chipd cen0e" href="#0"
+                >Tutorials</a
+              >
+            </li>
+          </ul>
 
-                <!-- Filters -->
-                <ul class="cg3vi crdpf cnxqt c8z7y cme8e cfwvb">
-                  <li class="cz4pw c59mu">
-                    <a
-                      class="cxmc9 cgygf cg0ht cnp10 ch63g chipd cen0e"
-                      href="#0">Coding</a
-                    >
-                  </li>
-                  <li class="cz4pw c59mu">
-                    <a class="cts6h cb9ru cxslc c2bb0 chipd cen0e" href="#0"
-                      >Tutorials</a
-                    >
-                  </li>
-                </ul>
+          <!-- Articles list -->
+          <ArticlesList articles={sortedArticles} />
+        </section>
 
-                <!-- Articles list -->
-                <ArticlesList articles={sortedArticles} />
-              </section>
+        <!-- Popular Talks -->
+        <PopularTalks />
 
-              <!-- Popular Talks -->
-              <PopularTalks />
-
-              <!-- Open Source -->
-              <OpenSource />
-            </div>
-          </div>
-        </div>
-
-        <!-- right sidebar -->
-        <RightSideBar />
+        <!-- Open Source -->
+        <OpenSource />
       </div>
-
-      <Footer />
     </div>
-  </main>
+  </div>
 </Layout>

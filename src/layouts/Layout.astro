@@ -1,10 +1,18 @@
 ---
+import Footer from "../components/Footer.astro"
+import Header from "../components/Header.astro"
+import Hero from "../components/Hero.astro"
+import NavigationBar from "../components/NavigationBar.astro"
+import RightSideBar from "../components/RightSideBar.astro"
 import "../styles/global.css"
 interface Props {
   title: string
 }
 
 const { title } = Astro.props
+
+const currentPath = Astro.url.pathname
+const isHomeActive = currentPath === "/"
 ---
 
 <!doctype html>
@@ -19,17 +27,30 @@ const { title } = Astro.props
   <body class="c81c8 coo5n ce3nz cg0ht cpw1o cngo2 c9mf7">
     <div class="cfbgr cpphc">
       <div class="ckb2r cfwvb">
-        <slot />
+        <NavigationBar />
+        <main class="c08dn c4a0m cajes">
+          <div class="csbbd c0bc4 cpphc cglmn c8pgj cfwvb">
+            <Header />
+            {isHomeActive ? <Hero /> : null}
+            <div
+              class=`c6969 c9xin cr8w3 ci4j9 clwia cpqam c4a0m ${!isHomeActive ? "cr7br c94qd" : ""}`
+            >
+              <slot />
+              <RightSideBar />
+            </div>
+            <Footer />
+          </div>
+        </main>
       </div>
     </div>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
