@@ -2,8 +2,8 @@
 import type { CollectionEntry } from "astro:content"
 import { getCollection } from "astro:content"
 import ArticlesList from "../components/ArticlesList.astro"
-import OpenSource from "../components/OpenSource.astro"
-import PopularTalks from "../components/PopularTalks.astro"
+import FeaturedTutorials from "../components/FeaturedTutorials.astro"
+import FetauredProjects from "../components/FetauredProjects.astro"
 import Layout from "../layouts/Layout.astro"
 
 const articles = await getCollection("articles")
@@ -44,10 +44,10 @@ const sortedArticles = articles.sort(
         </section>
 
         <!-- Popular Talks -->
-        <PopularTalks />
+        <FeaturedTutorials />
 
-        <!-- Open Source -->
-        <OpenSource />
+        <!-- Fetaured Projects -->
+        <FetauredProjects />
       </div>
     </div>
   </div>

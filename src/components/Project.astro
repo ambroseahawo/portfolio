@@ -1,0 +1,51 @@
+---
+import type { Project } from "../data/projects"
+
+interface Props {
+  project: Project
+}
+
+const { project } = Astro.props
+---
+
+<a
+  class="transition-color ciouw cxbr2 cg3vi cj965 cry3b c81t6 cax03 chtu4 czz51 c90wr cpnf3 c5oxi"
+  href={project.link}
+>
+  <div class="c0bc4 cglmn cfwvb">
+    <div class="c4a0m">
+      <div class="cpk71 c5a0p c07io cfwvb">
+        <div
+          class="ce7gc cax03 cfup8 c5a0p c3iz2 c90wr c4udf cfwvb c924u cvlm4"
+        >
+          <img src={project.icon} width="18" height="18" alt={project.title} />
+        </div>
+        {
+          project.tags && project.tags.length > 0 && (
+            <div class="czp5d c5a0p c3iz2 c5ztu cz5kb c41ht cnp10 ck5r6 c7q5z c1hqr">
+              {project.tags[0]}
+            </div>
+          )
+        }
+      </div>
+      <div class="cpynq c670g c5rvt c0kco">
+        {project.title}
+      </div>
+      <p class="cxslc c2bb0 cme8e c4udf">
+        {project.description}
+      </p>
+    </div>
+    <div class="chugl creo2 cfwvb">
+      <svg
+        class="cblsf ck1rl cjnrq cq4kb cn2yf"
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="12"
+      >
+        <path
+          d="M9.586 5 6.293 1.707 7.707.293 13.414 6l-5.707 5.707-1.414-1.414L9.586 7H0V5h9.586Z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+</a>
