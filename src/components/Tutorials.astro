@@ -1,25 +1,36 @@
 ---
-import { tutorials } from "../data/tutorials"
+interface Props {
+  tutorials: {
+    title: string
+    coverImage: string
+    featured: boolean
+  }[]
+  isFeatured?: boolean
+}
 
-const featuredTutorials = tutorials
-  .filter((tutorial) => tutorial.featured)
-  .slice(0, 2)
+const { tutorials, isFeatured = false } = Astro.props
+
+const displayTutorials = isFeatured
+  ? tutorials.filter((tutorial) => tutorial.featured).slice(0, 2)
+  : tutorials
 ---
 
 <section>
-  <h2 class="cpynq c670g c8dzi cme53">Fetaured Tutorials</h2>
+  <h2 class="cpynq c670g c8dzi cme53">
+    {isFeatured ? "Featured Tutorials" : ""}
+  </h2>
 
   <!-- Cards -->
   <div class="c2bf0 cuyx0 ci65n cgdgh ceazt">
     {
-      featuredTutorials.map((tutorial) => (
+      displayTutorials.map((tutorial) => (
         <a
-          class="ck1rl cegol cth4i c08dn c1gvt c6iwv c9ic7 czh94 crprk cpa9f c9alu chtu4 czz51 cjci4 c5c77"
+          class={`ck1rl cegol cth4i c08dn ${isFeatured ? "czh94 c1gvt" : ""} c6iwv c9ic7 crprk cpa9f c9alu chtu4 czz51 cjci4 c5c77`}
           href="#0"
         >
           <img
             class="c8c2x c8bmc chzqd c5u91 cglmn c8pgj"
-            src={tutorial.src}
+            src={tutorial.coverImage}
             width="336"
             height="189"
             alt="Popular post 01"
