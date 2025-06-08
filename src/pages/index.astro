@@ -2,7 +2,7 @@
 import type { CollectionEntry } from "astro:content"
 import { getCollection } from "astro:content"
 import ArticlesList from "../components/ArticlesList.astro"
-import FetauredProjects from "../components/FetauredProjects.astro"
+import FeaturedProjects from "../components/FeaturedProjects.astro"
 import Tabs from "../components/Tabs.astro"
 import Tutorials from "../components/Tutorials.astro"
 import { tutorials } from "../data/tutorials"
@@ -61,7 +61,7 @@ const tabs = [
 
         <div class="tab-content" data-tab="coding">
           <!-- Fetaured Projects -->
-          <FetauredProjects />
+          <FeaturedProjects />
         </div>
       </div>
     </div>
