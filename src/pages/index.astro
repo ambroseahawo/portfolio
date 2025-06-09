@@ -1,20 +1,13 @@
 ---
-import type { CollectionEntry } from "astro:content"
-import { getCollection } from "astro:content"
 import ArticlesList from "../components/ArticlesList.astro"
 import FeaturedProjects from "../components/FeaturedProjects.astro"
 import Tabs from "../components/Tabs.astro"
 import Tutorials from "../components/Tutorials.astro"
 import { tutorials } from "../data/tutorials"
 import Layout from "../layouts/Layout.astro"
+import { getSortedArticles } from "../lib/articles"
 
-const articles = await getCollection("articles")
-
-// Sort articles by publishedAt date in descending order
-const sortedArticles = articles.sort(
-  (a: CollectionEntry<"articles">, b: CollectionEntry<"articles">) =>
-    b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
-)
+const sortedArticles = await getSortedArticles()
 
 // Sort tutorials by publishedAt date in descending order
 const sortedTutorials = [...tutorials].sort(
@@ -60,7 +53,7 @@ const tabs = [
         </div>
 
         <div class="tab-content" data-tab="coding">
-          <!-- Fetaured Projects -->
+          <!-- Featured Projects -->
           <FeaturedProjects />
         </div>
       </div>

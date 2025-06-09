@@ -2,8 +2,17 @@
 import { languages } from '../data/languages';
 import { technicalSkills } from '../data/technicalSkills';
 import NewsLetter from "./NewsLetter.astro";
+import { getSortedArticles, getFeaturedArticles } from "../lib/articles";
+
+const sortedArticles = await getSortedArticles()
+let featuredArticles = getFeaturedArticles(sortedArticles)
 
 const currentPath = Astro.url.pathname
+const currentSlug = currentPath.startsWith("/blueprints/") 
+  ? currentPath.replace("/blueprints/", "").replace(/\/$/, "")
+  : ""
+featuredArticles = featuredArticles.filter((article) => article.slug !== currentSlug)
+
 const showNewsLetter =
   ["/", "/projects"].includes(currentPath) ||
   currentPath.startsWith("/blueprints")
@@ -12,7 +21,7 @@ const showSponsorWidget =
   currentPath.startsWith("/blueprints")
 
 const showEbook = ["/"].includes(currentPath)
-const showPopularPosts = currentPath.startsWith("/blueprints/")
+const showPopularPosts = currentPath.startsWith("/blueprints/") && featuredArticles.length > 0
 
 const isResumePath = currentPath == "/resume"
 ---
@@ -51,17 +60,19 @@ const isResumePath = currentPath == "/resume"
     {
       showPopularPosts ? (
         <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi">
-          <div class="cpynq c670g cec5b">Popular Posts</div>
+          <div class="cpynq c670g cec5b">Featured Posts</div>
           <ul class="c3y7y">
-            <li class="cz5kb">
-              <span class="chugl cfxlx">—</span>{" "}
-              <a
-                class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cpynq c670g cofma cz5kb c5c77 cn2yf cme8e"
-                href="post.html"
-              >
-                Writing My First Security Blogpost
-              </a>
-            </li>
+            {featuredArticles.map((article) => (
+              <li class="cz5kb">
+                <span class="chugl cfxlx">—</span>{" "}
+                <a
+                  class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cpynq c670g cofma cz5kb c5c77 cn2yf cme8e"
+                  href={`/blueprints/${article.slug}`}
+                >
+                  {article.data.title}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       ) : null
@@ -74,7 +85,7 @@ const isResumePath = currentPath == "/resume"
           <div class="c41ht">
             <img
               class="cz5kb czz51 c46gp cpe17"
-              src="/images/comming-soon-ebook.png"
+              src="/images/coming-soon-ebook.png"
               width="148"
               height="190"
               alt="E-Book"

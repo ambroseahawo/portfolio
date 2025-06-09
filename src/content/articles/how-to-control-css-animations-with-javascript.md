@@ -4,6 +4,7 @@ coverImage: "/images/post-thumb-01.jpg"
 excerpt: "Flexbox is a remarkably flexible layout mode. When we understand how it works, we can build responsive designs that rearrange themselves as needed."
 publishedAt: 2023-12-24T00:00:00.000Z
 readTime: 8
+featured: true
 ---
 
 When it comes to animations on the web, developers need to measure the animation's requirements with the right technology -- CSS or JavaScript.
