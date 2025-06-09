@@ -13,6 +13,16 @@ const articlesCollection = defineCollection({
   }),
 });
 
+const legalCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    updatedAt: z.date().optional(),
+    publishedAt: z.date().optional(),
+  }),
+});
+
 export const collections = {
   articles: articlesCollection,
+  legal: legalCollection,
 }; 
