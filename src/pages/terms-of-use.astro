@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content"
+import Layout from "../layouts/Layout.astro"
+import { processArticleContent } from "../lib/articleProcessor"
+
+const privacyPolicy = await getCollection(
+  "legal",
+  ({ slug }) => slug === "terms-of-use"
+)
+const updatedHtml = await processArticleContent(privacyPolicy[0])
+---
+
+<Layout title="Infranotes - Terms of Use">
+  <div class="c4a0m">
+    <div class="c8b8k">
+      <!-- Back -->
+      <div class="cec5b">
+        <a
+          class="cg3vi cj965 cry3b c81t6 cax03 c3iz2 chugl cz5kb c90wr"
+          href="/"
+        >
+          <span class="c4g5b">Back</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34">
+            <path
+              class="cjnrq"
+              d="m16.414 17 3.293 3.293-1.414 1.414L13.586 17l4.707-4.707 1.414 1.414z"
+            ></path>
+          </svg>
+        </a>
+      </div>
+      <article>
+        <!-- Post header -->
+        <header>
+          <div class="cpk71 c5a0p c0kco cfwvb">
+            <div class="c2bb0 cd99g ck5r6">
+              <span class="chugl">—</span>
+              Effective Date: NOV 20, 2024
+              <span class="cxuy4 crnoq">·</span> 4 Min read
+            </div>
+          </div>
+          <h1 class="cpynq cjd5a ciz93">Terms of Use</h1>
+        </header>
+        <div class="cxslc c2bb0 cr8w3" set:html={updatedHtml} />
+      </article>
+    </div>
+  </div>
+</Layout>
