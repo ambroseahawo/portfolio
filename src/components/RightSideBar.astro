@@ -14,10 +14,14 @@ const currentSlug = currentPath.startsWith("/blueprints/")
 featuredArticles = featuredArticles.filter((article) => article.slug !== currentSlug)
 
 const showNewsLetter =
-  ["/", "/projects", "/contact"].includes(currentPath) ||
+  ["/", "/projects", "/contact","/privacy-policy/",
+  "/terms-of-use/","/privacy-policy",
+  "/terms-of-use"].includes(currentPath) ||
   currentPath.startsWith("/blueprints")
 const showSponsorWidget =
-  ["/", "/projects", "/contact"].includes(currentPath) ||
+  ["/", "/projects", "/contact","/privacy-policy/",
+  "/terms-of-use/","/privacy-policy",
+  "/terms-of-use"].includes(currentPath) ||
   currentPath.startsWith("/blueprints")
 
 const showEbook = ["/", "/contact"].includes(currentPath)

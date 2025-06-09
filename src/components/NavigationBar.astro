@@ -4,7 +4,14 @@ import navigationItems from "../data/navigation"
 
 const currentPath = Astro.url.pathname
 const isHomeActive =
-  currentPath === "/" || currentPath.startsWith("/blueprints/")
+  [
+    "/",
+    "/privacy-policy/",
+    "/terms-of-use/",
+    "/privacy-policy",
+    "/terms-of-use",
+  ].includes(currentPath) || currentPath.startsWith("/blueprints/")
+// currentPath === "/" || currentPath.startsWith("/blueprints/")
 
 const itemsWithActiveState = navigationItems.map((item: NavigationItem) => ({
   ...item,
