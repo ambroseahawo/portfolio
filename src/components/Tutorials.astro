@@ -13,12 +13,16 @@ const { tutorials, isFeatured = false } = Astro.props
 const displayTutorials = isFeatured
   ? tutorials.filter((tutorial) => tutorial.featured).slice(0, 2)
   : tutorials
+
+const showHeading = isFeatured === true && displayTutorials.length > 0
 ---
 
 <section>
-  <h2 class="cpynq c670g c8dzi cme53">
-    {isFeatured ? "Featured Tutorials" : ""}
-  </h2>
+  {
+    showHeading ? (
+      <h2 class="cpynq c670g c8dzi cme53">Featured Tutorials</h2>
+    ) : null
+  }
 
   <!-- Cards -->
   <div class="c2bf0 cuyx0 ci65n cgdgh ceazt">

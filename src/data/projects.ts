@@ -10,37 +10,22 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: 'Container Tinkering',
-    description: 'Solutions for running containers locally and remotely.',
-    icon: '/images/project-icon-01.svg',
-    category: 'tutorial',
-    link: '#0',
-    tags: ['Open-Source'],
-    featured: true
-  },
-  {
-    title: 'Engine Prototypes',
-    description: 'Solutions for running containers locally and remotely.',
-    icon: '/images/project-icon-02.svg',
-    category: 'tutorial',
-    link: '#0',
-    featured: true
-  },
-  {
-    title: 'PixelOkay',
-    description: 'Code assets and services for people, with people.',
+    title: 'Direkta',
+    description: 'Platform that helps GSM sales teams manage SIM card assignments, track sales, and get performance insights. It gives partners and dealers a clear view of stock levels, targets, and team productivity.',
     icon: '/images/project-icon-03.svg',
     category: 'client',
-    link: '#0',
-    tags: ['Open-Source'],
-    featured: false
+    link: 'https://direkta-sim-management-nextjs.vercel.app/',
+    tags: ['Live'],
+    featured: true
   },
   {
-    title: 'Storybook',
-    description: 'Storybook helps you develop, test, and document UIs.',
-    icon: '/images/project-icon-04.svg',
-    category: 'client',
-    link: '#0',
-    featured: false
-  }
+    title: 'Nodejs Nextjs Auth',
+    description: 'Advanced Authentication: 2FA, Email Verification, Cookies, Sessions, and JWT with Node.js and Nextjs',
+    icon: '/images/nextjs.png',
+    category: 'tutorial',
+    link: 'https://github.com/ambroseahawo/nodejs-express-auth',
+    tags: ['Public'],
+    featured: true
+  },
+
 ]; 
