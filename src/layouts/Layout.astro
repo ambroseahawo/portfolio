@@ -2,6 +2,7 @@
 import Footer from "../components/Footer.astro"
 import Header from "../components/Header.astro"
 import Hero from "../components/Hero.astro"
+import MermaidInit from "../components/MermaidInit.astro"
 import NavigationBar from "../components/NavigationBar.astro"
 import RightSideBar from "../components/RightSideBar.astro"
 import "../styles/custom.css"
@@ -24,6 +25,8 @@ const isHomeActive = currentPath === "/"
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <!-- <link href="/style.css" rel="stylesheet" /> -->
     <script src="/theme.js" defer></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"
+    ></script> -->
   </head>
   <body class="c81c8 coo5n ce3nz cg0ht cpw1o cngo2 c9mf7">
     <div class="cfbgr cpphc">
@@ -53,5 +56,6 @@ const isHomeActive = currentPath === "/"
         height: 100%;
       }
     </style>
+    <MermaidInit />
   </body>
 </html>

@@ -4,6 +4,32 @@ import { marked, type MarkedOptions } from "marked"
 
 type ContentEntry = CollectionEntry<"articles"> | CollectionEntry<"legal">
 
+function processMermaidDiagrams(html: string): string {
+  const dom = new JSDOM(html)
+  const document = dom.window.document
+  
+  // Find all pre>code blocks
+  const codeBlocks = document.querySelectorAll('pre code')
+  
+  codeBlocks.forEach((codeBlock) => {
+    const pre = codeBlock.parentElement
+    if (!pre) return
+    
+    // Check if this is a mermaid diagram
+    if (codeBlock.className.includes('language-mermaid')) {
+      // Create a new div for the mermaid diagram
+      const mermaidDiv = document.createElement('div')
+      mermaidDiv.className = 'mermaid'
+      mermaidDiv.textContent = codeBlock.textContent
+      
+      // Replace the pre>code block with our mermaid div
+      pre.parentNode?.replaceChild(mermaidDiv, pre)
+    }
+  })
+  
+  return document.body.innerHTML
+}
+
 export async function processArticleContent(entry: ContentEntry) {
   let htmlContent = ""
   let updatedHtml = ""
@@ -17,6 +43,10 @@ export async function processArticleContent(entry: ContentEntry) {
     htmlContent = await Promise.resolve(
       marked.parse(entry.body || "", markedOptions)
     )
+    
+    // Process Mermaid diagrams first
+    htmlContent = processMermaidDiagrams(htmlContent)
+    
     // Use JSDOM to add IDs to h2s and extract TOC
     const dom = new JSDOM(htmlContent)
 
