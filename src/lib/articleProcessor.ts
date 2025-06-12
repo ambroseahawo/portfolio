@@ -108,6 +108,14 @@ export async function processArticleContent(entry: ContentEntry) {
       ul.classList.add("c2czg", "c0c3z", "csndo")
     })
 
+    // Add classes to ol
+    const ols = dom.window.document.querySelectorAll("ol")
+    ols.forEach((ol) => {
+      ol.classList.add("c2czg", "c0c3z", "csndo")
+      ol.style.listStyleType = "decimal"
+      // ol.style.paddingLeft = "1em"
+    })
+
     // Inject classes and styles into all images in the article content
     const imageElements = dom.window.document.querySelectorAll("img")
     imageElements.forEach((img) => {
