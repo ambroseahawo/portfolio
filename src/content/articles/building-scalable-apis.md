@@ -2,7 +2,7 @@
 title: "Building Scalable APIs: Design Patterns That Actually Work"
 coverImage: "/images/building-scalable-apis.jpg"
 excerpt: "Comprehensive guide to designing REST and GraphQL APIs with rate-limiting, versioning, pagination, and authentication"
-publishedAt: 2023-12-24T00:00:00.000Z
+publishedAt: 2025-01-10T00:00:00.000Z
 readTime: 8
 featured: true
 ---
@@ -90,6 +90,9 @@ graph LR
 *Figure 3: Token bucket algorithm visualization*
 
 ---
+
+
+The Token Bucket algorithm uses a bucket of tokens to limit and regulate the flow of requests.
 
 ### Implementation:
 
