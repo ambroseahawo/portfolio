@@ -124,6 +124,24 @@ export async function processArticleContent(entry: ContentEntry) {
       img.height = 390
     })
 
+    // Add classes to tables
+    const tables = dom.window.document.querySelectorAll("table")
+    tables.forEach((table) => {
+      table.classList.add("tw-w-full", "tw-border-collapse", "tw-my-4")
+    })
+
+    // Add classes to table headers
+    const ths = dom.window.document.querySelectorAll("th")
+    ths.forEach((th) => {
+      th.classList.add("tw-px-4", "tw-py-2", "tw-text-left", "tw-bg-gray-100", "tw-border", "tw-border-gray-200", "tw-font-semibold")
+    })
+
+    // Add classes to table cells
+    const tds = dom.window.document.querySelectorAll("td")
+    tds.forEach((td) => {
+      td.classList.add("tw-px-4", "tw-py-2", "tw-border", "tw-border-gray-200")
+    })
+
     updatedHtml = dom.window.document.body.innerHTML
   } catch (error) {
     console.error("Error processing content:", error)
