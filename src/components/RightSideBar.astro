@@ -1,0 +1,216 @@
+---
+import { languages } from '../data/languages';
+import { technicalSkills } from '../data/technicalSkills';
+import { getSortedArticles, getFeaturedArticles } from "../lib/articles";
+
+const sortedArticles = await getSortedArticles()
+let featuredArticles = getFeaturedArticles(sortedArticles)
+
+const currentPath = Astro.url.pathname
+const currentSlug = currentPath.startsWith("/blueprints/") 
+  ? currentPath.replace("/blueprints/", "").replace(/\/$/, "")
+  : ""
+featuredArticles = featuredArticles.filter((article) => article.slug !== currentSlug)
+
+const showPopularPosts = currentPath.startsWith("/blueprints/") && featuredArticles.length > 0
+
+const isResumePath = currentPath == "/resume"
+const isHomePage = currentPath === "/"
+const isProjectsPath = currentPath === "/projects"
+const isContactPath = currentPath === "/contact"
+
+// Related articles for projects and contact pages (show featured articles)
+const relatedArticles = featuredArticles.slice(0, 3)
+
+// Determine which widgets to show
+const showRelatedArticles = (isProjectsPath || isContactPath) && relatedArticles.length > 0
+const showServices = isHomePage || isProjectsPath || isContactPath
+const showPersonalCTA = isHomePage
+const showProjectsLink = isHomePage
+
+// Services widget link configuration
+const servicesLinkHref = isContactPath ? "/projects" : "/contact"
+const servicesLinkText = isContactPath ? "View Projects" : "Learn More"
+---
+
+<aside class="cd6k2 cf0x4 csb3e">
+  <div class="c92wf">
+    <!-- Personal CTA Widget (Home page only) -->
+    {
+      showPersonalCTA ? (
+        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+          <div class="cpynq c670g cec5b">Need Help?</div>
+          <p class="cxslc c2bb0 cme8e" style="margin-bottom: 1rem;">
+            Need help with your infrastructure? Let's talk about building secure, scalable systems.
+          </p>
+          <a
+            href="/contact"
+            class="cwlj7 c0kjz czzu3 csfon c8pgj"
+            style="display: inline-block; text-align: center; text-decoration: none; width: 100%;"
+          >
+            Get in Touch
+          </a>
+        </div>
+      ) : null
+    }
+
+    <!-- Related Articles Widget (Projects and Contact pages) -->
+    {
+      showRelatedArticles ? (
+        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+          <div class="cpynq c670g cec5b">Related Articles</div>
+          <ul class="c3y7y">
+            {relatedArticles.map((article) => (
+              <li class="cz5kb">
+                <span class="chugl cfxlx">—</span>{" "}
+                <a
+                  class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cpynq c670g cofma cz5kb c5c77 cn2yf cme8e"
+                  href={`/blueprints/${article.slug}`}
+                >
+                  {article.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null
+    }
+
+    <!-- Services Widget (Home, Projects, Contact pages) -->
+    {
+      showServices ? (
+        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+          <div class="cpynq c670g cec5b">Services</div>
+          <ul class="c3y7y" style="list-style: none; padding: 0;">
+            <li class="cz5kb" style="padding: 0.25rem 0;">
+              <span class="chugl cfxlx">—</span>{" "}
+              <span class="cxslc c2bb0 cme8e">Backend Architecture</span>
+            </li>
+            <li class="cz5kb" style="padding: 0.25rem 0;">
+              <span class="chugl cfxlx">—</span>{" "}
+              <span class="cxslc c2bb0 cme8e">API Design & Development</span>
+            </li>
+            <li class="cz5kb" style="padding: 0.25rem 0;">
+              <span class="chugl cfxlx">—</span>{" "}
+              <span class="cxslc c2bb0 cme8e">Infrastructure Consulting</span>
+            </li>
+            <li class="cz5kb" style="padding: 0.25rem 0;">
+              <span class="chugl cfxlx">—</span>{" "}
+              <span class="cxslc c2bb0 cme8e">System Security Audits</span>
+            </li>
+          </ul>
+          <a
+            href={servicesLinkHref}
+            class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cpynq c670g cofma"
+            style="margin-top: 0.75rem; display: inline-flex; align-items: center; gap: 0.375rem;"
+          >
+            {servicesLinkText}
+            <svg
+              class="cjnrq"
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="12"
+            >
+              <path d="M9.586 5 6.293 1.707 7.707.293 13.414 6l-5.707 5.707-1.414-1.414L9.586 7H0V5h9.586Z" />
+            </svg>
+          </a>
+        </div>
+      ) : null
+    }
+
+    <!-- Projects Link Widget (Home page only) -->
+    {
+      showProjectsLink ? (
+        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+          <div class="cpynq c670g cec5b" style="margin-bottom: 0.75rem;">Projects</div>
+          <p class="cxslc c2bb0 cme8e" style="margin-bottom: 1rem;">
+            Explore my portfolio of client projects and tutorials.
+          </p>
+          <a
+            href="/projects"
+            class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cpynq c670g cofma"
+            style="display: inline-flex; align-items: center; gap: 0.375rem;"
+          >
+            View Projects
+            <svg
+              class="cjnrq"
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="12"
+            >
+              <path d="M9.586 5 6.293 1.707 7.707.293 13.414 6l-5.707 5.707-1.414-1.414L9.586 7H0V5h9.586Z" />
+            </svg>
+          </a>
+        </div>
+      ) : null
+    }
+
+    {
+      showPopularPosts ? (
+        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+          <div class="cpynq c670g cec5b">Featured Posts</div>
+          <ul class="c3y7y">
+            {featuredArticles.map((article) => (
+              <li class="cz5kb">
+                <span class="chugl cfxlx">—</span>{" "}
+                <a
+                  class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cpynq c670g cofma cz5kb c5c77 cn2yf cme8e"
+                  href={`/blueprints/${article.slug}`}
+                >
+                  {article.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null
+    }
+
+    <!-- Technical Skills widget -->
+    {isResumePath? (
+    <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+      <div class="cpynq c670g cec5b">Technical Skills</div>
+      <ul class="c3y7y">
+        {technicalSkills.map((skill) => (
+          <li class="cpk71 c5a0p cfwvb">
+            <div class="cz5kb crym2 c4jlg c4a0m">
+              <span class="chugl cfxlx">—</span>
+              <a class="cpynq c670g crym2 cme8e">{skill.name}</a>
+            </div>
+            <div
+              class={`${skill.progressClass} c02h6 c9zx4 c4ezg c8xm0 ciky4 c5c77 csb3e c2x9f crdz5`}
+              role="progressbar"
+              aria-valuenow={skill.proficiency}
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+    
+    <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+      <div class="cpynq c670g cec5b">Languages</div>
+      <ul class="c3y7y">
+        {languages.map((language) => (
+          <li class="cpk71 c5a0p cfwvb">
+            <div class="cz5kb crym2 c3rtw c4a0m">
+              <span class="cp130 c3rtw">{language.flag}</span>
+              <span class="cpynq c670g crym2 cme8e">{language.name}</span>
+            </div>
+            <div
+              class={`${language.progressClass} cre3k cin3w c981s cjg8k cc1zk c7872 cohra c3iz2 ck1f0 cg026 c5c77 csb3e c1hqr c5joj`}
+              role="progressbar"
+              aria-valuenow={language.proficiency}
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+    ):null}
+  </div>
+</aside>

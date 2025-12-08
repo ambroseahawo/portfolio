@@ -1,0 +1,59 @@
+---
+// Tabs.astro
+interface Props {
+  tabs: { id: string; label: string }[]
+  activeTab: string
+}
+
+const { tabs, activeTab } = Astro.props
+---
+
+<ul class="cg3vi crdpf cnxqt c8z7y cme8e cfwvb" id="tabs">
+  {
+    tabs.map((tab) => (
+      <li class="cz4pw c59mu">
+        <button
+          class={`chipd cen0e ${
+            tab.id === activeTab
+              ? "cxmc9 cgygf cg0ht cnp10 ch63g"
+              : "cts6h cb9ru cxslc c2bb0"
+          }`}
+          data-tab={tab.id}
+          role="tab"
+        >
+          {tab.label}
+        </button>
+      </li>
+    ))
+  }
+</ul>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tabs = document.querySelectorAll("#tabs button")
+    const contents = document.querySelectorAll(".tab-content")
+
+    // console.log("Tab content blocks:", contents) // Should now show both divs
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", (e) => {
+        e.preventDefault()
+
+        const selected = tab.getAttribute("data-tab")
+
+        tabs.forEach((t) =>
+          t.classList.remove("cxmc9", "cgygf", "cg0ht", "cnp10", "ch63g")
+        )
+        tab.classList.add("cxmc9", "cgygf", "cg0ht", "cnp10", "ch63g")
+
+        contents.forEach((c) => {
+          if (c.dataset.tab === selected) {
+            c.classList.remove("hidden")
+          } else {
+            c.classList.add("hidden")
+          }
+        })
+      })
+    })
+  })
+</script>

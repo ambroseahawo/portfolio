@@ -1,0 +1,37 @@
+---
+import { footerData } from "../data/footer"
+---
+
+<footer class="cg3vi cax03 cg7wt">
+  <div class="cijup">
+    <div class="co0g2 co95u c41ht clwia">
+      <!-- Social links -->
+      <ul class="cz5kb cg4go c07io c5mn7 c84qw cjd5a">
+        {
+          footerData.socialLinks.map((link) => (
+            <li>
+              <a
+                class="ceis2 cfup8 c5a0p chugl cofma chtu4 coi2g cfwvb"
+                href={link.url}
+                aria-label={link.name}
+                target="_blank"
+              >
+                <svg
+                  class="cjnrq csb9v c2298"
+                  viewBox="0 0 32 32"
+                  xmlns="http://www.w3.org/2000/svg"
+                  set:html={link.icon}
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- Copyright -->
+      <div class="cxslc c2bb0 cme8e">
+        {footerData.copyright}
+      </div>
+    </div>
+  </div>
+</footer>

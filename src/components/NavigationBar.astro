@@ -1,0 +1,66 @@
+---
+import type { NavigationItem } from "../data/navigation"
+import navigationItems from "../data/navigation"
+
+const currentPath = Astro.url.pathname
+const isHomeActive =
+  [
+    "/",
+    "/privacy-policy/",
+    "/terms-of-use/",
+    "/privacy-policy",
+    "/terms-of-use",
+  ].includes(currentPath) || currentPath.startsWith("/blueprints/")
+// currentPath === "/" || currentPath.startsWith("/blueprints/")
+
+const itemsWithActiveState = navigationItems.map((item: NavigationItem) => ({
+  ...item,
+  isActive: item.href === "/" ? isHomeActive : currentPath === item.href,
+}))
+---
+
+<div
+  id="navigation-bar"
+  class="cg3vi cax03 c5e9s cadmo cqmvi csb3e cxxfw c9cru c70js cfydh c5zj3 mobile-nav-hidden"
+>
+  <div class="cpk71 co9go c9hv0 c0bc4 cglmn cfwvb">
+    <div class="cew4t">
+      {
+        currentPath !== "/" && (
+          <div class="cfup8 cst8n cfwvb">
+            <a href="/">
+              <img
+                class="c3iz2"
+                src="/images/me.png"
+                width="32"
+                height="32"
+                alt="Me"
+              />
+            </a>
+          </div>
+        )
+      }
+    </div>
+    <div class="c5a0p cew4t cfwvb c4a0m">
+      <nav class="c8pgj">
+        <ul class="c9gi4">
+          {
+            itemsWithActiveState.map(
+              (item: NavigationItem & { isActive: boolean }) => (
+                <li class="cgktm">
+                  <a
+                    class={`c5a0p chugl c53su c5c77 c8pgj cfwvb cq87d ${item.isActive ? "cgla5 cjg8k cj6ii cfup8 cdxil csov4" : "c4ugg csbvt cpvt7 cfup8 crnoq"}`}
+                    href={item.href}
+                  >
+                    <span class="c4g5b">{item.label}</span>
+                    <Fragment set:html={item.icon} />
+                  </a>
+                </li>
+              )
+            )
+          }
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

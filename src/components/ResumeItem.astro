@@ -1,0 +1,38 @@
+---
+interface Props {
+  period: string
+  title: string
+  institution?: string
+  company?: string
+  description: string
+  icon: string
+}
+
+const { period, title, institution, company, description, icon } = Astro.props
+---
+
+<li class="c5c77 cpnf3">
+  <div
+    class="c9nsn cx6rx cimjd c39j0 c3jrd cdoe6 c3eja c4ezg cmvl0 ca62j c0m6u c9noy cfwvb"
+  >
+    <div
+      class="cg3vi cj965 cry3b c81t6 coo5n cax03 cfup8 c5a0p c3iz2 chzqd c9mf7 cr4ta c90wr cfwvb c7yaq co5ux"
+    >
+      <img src={icon} width="24" height="24" alt={institution || company} />
+    </div>
+    <div class="catbp c96dc">
+      <div class="c2bb0 cd99g ck5r6">
+        {period}
+      </div>
+      <div class="cxmc9 cg0ht cpynq c670g">
+        {title}
+      </div>
+      <div class="cxmc9 cg0ht cnp10 cme8e">
+        {institution || company}
+      </div>
+      <div class="cxslc c2bb0 cme8e">
+        {description}
+      </div>
+    </div>
+  </div>
+</li>

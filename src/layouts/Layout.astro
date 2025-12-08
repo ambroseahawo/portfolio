@@ -1,0 +1,145 @@
+---
+import Footer from "../components/Footer.astro"
+import Header from "../components/Header.astro"
+import Hero from "../components/Hero.astro"
+import MermaidInit from "../components/MermaidInit.astro"
+import NavigationBar from "../components/NavigationBar.astro"
+import RightSideBar from "../components/RightSideBar.astro"
+import "../styles/custom.css"
+import "../styles/global.css"
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+
+const currentPath = Astro.url.pathname
+const isHomeActive = currentPath === "/"
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!-- <link href="/style.css" rel="stylesheet" /> -->
+    <script src="/theme.js" defer></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"
+    ></script> -->
+  </head>
+  <body class="c81c8 coo5n ce3nz cg0ht cpw1o cngo2 c9mf7">
+    <!-- Mobile navigation overlay -->
+    <div id="mobile-nav-overlay" class="mobile-nav-overlay"></div>
+    <div class="cfbgr cpphc">
+      <div class="ckb2r cfwvb">
+        <NavigationBar />
+        <main class="c08dn c4a0m cajes">
+          <div class="csbbd c0bc4 cpphc cglmn c8pgj cfwvb">
+            <Header />
+            {isHomeActive ? <Hero /> : null}
+            <div
+              class=`c6969 c9xin cr8w3 ci4j9 clwia cpqam c4a0m ${!isHomeActive ? "cr7br c94qd" : ""}`
+            >
+              <slot />
+              <RightSideBar />
+            </div>
+            <Footer />
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <script>
+      // Mobile navigation toggle functionality
+      ;(function () {
+        const toggleButton = document.getElementById("mobile-menu-toggle")
+        const navigationBar = document.getElementById("navigation-bar")
+        const overlay = document.getElementById("mobile-nav-overlay")
+
+        if (!toggleButton || !navigationBar) return
+
+        // TypeScript: we know these are not null after the check above
+        const btn = toggleButton
+        const nav = navigationBar
+        const menuIcon = btn.querySelector(".menu-icon")
+        const closeIcon = btn.querySelector(".close-icon")
+
+        function toggleMenu() {
+          const isHidden = nav.classList.contains("mobile-nav-hidden")
+
+          if (isHidden) {
+            // Open menu
+            nav.classList.remove("mobile-nav-hidden")
+            if (overlay) overlay.classList.add("active")
+            btn.setAttribute("aria-expanded", "true")
+            if (menuIcon) menuIcon.classList.add("cw2lf")
+            if (closeIcon) closeIcon.classList.remove("cw2lf")
+            document.body.style.overflow = "hidden" // Prevent body scroll
+          } else {
+            // Close menu
+            nav.classList.add("mobile-nav-hidden")
+            if (overlay) overlay.classList.remove("active")
+            btn.setAttribute("aria-expanded", "false")
+            if (menuIcon) menuIcon.classList.remove("cw2lf")
+            if (closeIcon) closeIcon.classList.add("cw2lf")
+            document.body.style.overflow = "" // Restore body scroll
+          }
+        }
+
+        function closeMenu() {
+          nav.classList.add("mobile-nav-hidden")
+          if (overlay) overlay.classList.remove("active")
+          btn.setAttribute("aria-expanded", "false")
+          if (menuIcon) menuIcon.classList.remove("cw2lf")
+          if (closeIcon) closeIcon.classList.add("cw2lf")
+          document.body.style.overflow = ""
+        }
+
+        // Toggle button click
+        btn.addEventListener("click", toggleMenu)
+
+        // Overlay click to close
+        if (overlay) {
+          overlay.addEventListener("click", closeMenu)
+        }
+
+        // Close menu when clicking on navigation links (mobile only)
+        if (window.innerWidth <= 767) {
+          const navLinks = nav.querySelectorAll("a")
+          navLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+              setTimeout(closeMenu, 100) // Small delay for navigation
+            })
+          })
+        }
+
+        // Handle window resize
+        let resizeTimer: ReturnType<typeof setTimeout> | undefined
+        window.addEventListener("resize", () => {
+          if (resizeTimer) clearTimeout(resizeTimer)
+          resizeTimer = setTimeout(() => {
+            if (window.innerWidth > 767) {
+              // Desktop view - ensure menu is visible
+              nav.classList.remove("mobile-nav-hidden")
+              if (overlay) overlay.classList.remove("active")
+              btn.setAttribute("aria-expanded", "false")
+              if (menuIcon) menuIcon.classList.remove("cw2lf")
+              if (closeIcon) closeIcon.classList.add("cw2lf")
+              document.body.style.overflow = ""
+            }
+          }, 250)
+        })
+      })()
+    </script>
+    <MermaidInit />
+  </body>
+</html>

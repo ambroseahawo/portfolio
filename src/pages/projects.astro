@@ -1,0 +1,43 @@
+---
+import Project from "../components/Project.astro"
+import { projects } from "../data/projects"
+import Layout from "../layouts/Layout.astro"
+
+const tutorialProjects = projects.filter(
+  (project) => project.category === "tutorial"
+)
+const clientProjects = projects.filter(
+  (project) => project.category === "client"
+)
+---
+
+<Layout title="Projects - Tutorials">
+  <div class="c4a0m">
+    <div class="c8b8k">
+      <section>
+        <!-- Page title -->
+        <h1 class="cpynq c1rrq ciz93">Nice stuff I've built</h1>
+        <!-- Page content -->
+        <div class="c7qcc">
+          <!-- Client Projects cards -->
+          <section>
+            <h2 class="cpynq c670g c8dzi cu69a">Client Projects</h2>
+            <!-- Cards -->
+            <div class="c2bf0 cuyx0 ci65n cgdgh ceazt">
+              {clientProjects.map((project) => <Project project={project} />)}
+            </div>
+          </section>
+
+          <!-- Side Hustles cards -->
+          <section>
+            <h2 class="cpynq c670g c8dzi cu69a">Tutorial Projects</h2>
+            <!-- Cards -->
+            <div class="c2bf0 cuyx0 ci65n cgdgh ceazt">
+              {tutorialProjects.map((project) => <Project project={project} />)}
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>

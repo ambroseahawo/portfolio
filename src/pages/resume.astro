@@ -1,0 +1,54 @@
+---
+import ResumeItem from "../components/ResumeItem.astro"
+import { resume as resumeData } from "../data/resume"
+import Layout from "../layouts/Layout.astro"
+---
+
+<Layout title="Resume - Education - Work Experience">
+  <div class="c4a0m">
+    <div class="c8b8k">
+      <section>
+        <!-- Page title -->
+        <h1 class="cpynq c1rrq ciz93">My resume</h1>
+        <!-- Page content -->
+        <div class="cxslc c2bb0 cjrdl">
+          <!-- Education -->
+          <div class="cr8w3">
+            <h2 class="cxmc9 cg0ht cpynq cjvvo">Education</h2>
+            <ul class="cr8w3">
+              {
+                resumeData.education.map((item) => (
+                  <ResumeItem
+                    period={item.period}
+                    title={item.degree}
+                    institution={item.institution}
+                    description={item.description}
+                    icon={item.icon}
+                  />
+                ))
+              }
+            </ul>
+          </div>
+
+          <!-- Work Experience -->
+          <div class="cr8w3">
+            <h2 class="cxmc9 cg0ht cpynq cjvvo">Work Experience</h2>
+            <ul class="cr8w3">
+              {
+                resumeData.experience.map((item) => (
+                  <ResumeItem
+                    period={item.period}
+                    title={item.title}
+                    company={item.company}
+                    description={item.description}
+                    icon={item.icon}
+                  />
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>
