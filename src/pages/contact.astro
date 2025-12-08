@@ -7,15 +7,13 @@ import Layout from "../layouts/Layout.astro"
     <div class="c8b8k">
       <div class="c7qcc">
         <section>
-          <!-- Page title -->
           <h1 class="cpynq cme53 ciz93">Partner with an Expert ✨</h1>
-          <!-- Page content -->
           <div class="cxslc c2bb0 cr8w3">
             <p class="c5rvt">
               Get in touch with an expert focused on scalable systems,
               infrastructure, and API architecture. Whether you're looking to
-              collaborate, request technical consultation, or ask a question —
-              here's what you can expect:
+              collaborate, request technical consultation, or ask a question.
+              Here's what you can expect:
             </p>
             <ul class="c9gi4">
               <li class="c9noy cfwvb">
@@ -72,12 +70,11 @@ import Layout from "../layouts/Layout.astro"
                     d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"
                   ></path>
                 </svg>
-                <span>Genuine, technical-first conversations — no fluff.</span>
+                <span>Genuine, technical-first conversations.</span>
               </li>
             </ul>
 
             <div>
-              <!-- Subscribe form -->
               <div class="!tw-isolate">
                 <form
                   id="contact-form"
@@ -156,6 +153,12 @@ import Layout from "../layouts/Layout.astro"
                           required
                           class="c899y !tw-block !tw-w-full !tw-rounded-md !tw-px-3.5 !tw-py-2 !tw-text-base !tw-text-gray-900 !tw-placeholder:text-gray-400"
                         />
+                        <div
+                          id="email-error"
+                          class="!tw-mt-1 !tw-text-sm !tw-text-red-600"
+                          style="display: none;"
+                        >
+                        </div>
                       </div>
                     </div>
                     <div class="sm:!tw-col-span-2">
@@ -185,13 +188,20 @@ import Layout from "../layouts/Layout.astro"
                             </select>
                           </div>
                           <input
-                            type="text"
+                            type="tel"
                             name="phone-number"
                             id="phone-number"
                             class="c899y !tw-rounded-none !tw-block !tw-min-w-0 !tw-grow !tw-py-1.5 !tw-pr-3 !tw-pl-1 !tw-text-base !tw-text-gray-900 !tw-placeholder:text-gray-400 focus:!tw-outline-none sm:!tw-text-sm/6"
-                            placeholder="123-456-7890"
+                            placeholder="+1234567890 or 1234567890"
+                            pattern="[\d\s\+\-\(\)]{7,20}"
                             required
                           />
+                        </div>
+                        <div
+                          id="phone-error"
+                          class="!tw-mt-1 !tw-text-sm !tw-text-red-600"
+                          style="display: none;"
+                        >
                         </div>
                       </div>
                     </div>
@@ -212,48 +222,18 @@ import Layout from "../layouts/Layout.astro"
                         ></textarea>
                       </div>
                     </div>
-                    <div class="!tw-flex !tw-gap-x-4 sm:!tw-col-span-2">
-                      <div class="!tw-flex !tw-h-6 !tw-items-center">
-                        <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
-                        <button
-                          type="button"
-                          class="!tw-flex !tw-w-8 !tw-flex-none !tw-cursor-pointer !tw-rounded-full !tw-bg-gray-200 !tw-p-px !tw-ring-1 !tw-ring-gray-900/5 !tw-transition-colors !tw-duration-200 !tw-ease-in-out !tw-ring-inset focus-visible:!tw-outline-2 focus-visible:!tw-outline-offset-2 focus-visible:!tw-outline-indigo-600"
-                          role="switch"
-                          aria-checked="false"
-                          aria-labelledby="switch-1-label"
-                        >
-                          <span class="!tw-sr-only">Agree to policies</span>
-                          <!-- Enabled: "translate-x-3.5", Not Enabled: "translate-x-0" -->
-                          <span
-                            aria-hidden="true"
-                            class="!tw-size-4 !tw-translate-x-0 !tw-transform !tw-rounded-full !tw-bg-white !tw-shadow-xs !tw-ring-1 !tw-ring-gray-900/5 !tw-transition !tw-duration-200 !tw-ease-in-out"
-                          ></span>
-                        </button>
-                      </div>
-                      <label
-                        class="!tw-text-sm/6 !tw-text-gray-600"
-                        id="switch-1-label"
-                      >
-                        By selecting this, you agree to our
-                        <a
-                          href="/privacy-policy"
-                          class="cpynq c670g chugl ck5r6 !tw-font-semibold"
-                          >privacy&nbsp;policy</a
-                        >.
-                      </label>
-                    </div>
                   </div>
                   <div class="!tw-mt-10">
                     <button
                       type="submit"
-                      class="cwlj7 czzu3 craoz chuke !tw-block !tw-w-full !tw-rounded-md !tw-px-3.5 !tw-py-2.5 !tw-text-center !tw-text-sm !tw-font-semibold !tw-text-white !tw-shadow-xs focus-visible:!tw-outline-2 focus-visible:!tw-outline-offset-2"
+                      id="submit-button"
+                      disabled
+                      class="cwlj7 czzu3 craoz chuke !tw-block !tw-w-full !tw-rounded-md !tw-px-3.5 !tw-py-2.5 !tw-text-center !tw-text-sm !tw-font-semibold !tw-text-white !tw-shadow-xs focus-visible:!tw-outline-2 focus-visible:!tw-outline-offset-2 disabled:!tw-opacity-50 disabled:!tw-cursor-not-allowed"
                       >Let's talk</button
                     >
                   </div>
                 </form>
               </div>
-              <!-- Success message -->
-              <!-- <p class="text-xs text-slate-500 mt-3 italic">Thanks for subscribing!</p> -->
             </div>
           </div>
         </section>
@@ -262,75 +242,4 @@ import Layout from "../layouts/Layout.astro"
   </div>
 </Layout>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const switchButton = document.querySelector('button[role="switch"]')
-    const switchSpan = switchButton?.querySelector('span[aria-hidden="true"]')
-
-    if (switchButton && switchSpan) {
-      switchButton.addEventListener("click", () => {
-        const isChecked = switchButton.getAttribute("aria-checked") === "true"
-        switchButton.setAttribute("aria-checked", String(!isChecked))
-        switchButton.classList.toggle("czzu3", !isChecked)
-        switchButton.classList.toggle("!tw-bg-gray-200", isChecked)
-        switchSpan.classList.toggle("!tw-translate-x-3.5", !isChecked)
-        switchSpan.classList.toggle("!tw-translate-x-0", isChecked)
-      })
-    }
-
-    // Fetch IP information and populate country and phone number fields
-    fetch("https://ipapi.co/json/")
-      .then((response) => response.json())
-      .then((data) => {
-        const countrySelect = document.getElementById(
-          "country"
-        ) as HTMLSelectElement
-        const phoneNumberInput = document.getElementById(
-          "phone-number"
-        ) as HTMLInputElement
-
-        if (countrySelect && data.country_code) {
-          // Create a new option element if the country code doesn't exist
-          if (
-            !Array.from(countrySelect.options).some(
-              (option) => option.value === data.country_code
-            )
-          ) {
-            const option = document.createElement("option")
-            option.value = data.country_code
-            option.textContent = data.country_code
-            countrySelect.appendChild(option)
-          }
-          countrySelect.value = data.country_code
-        }
-
-        if (phoneNumberInput && data.country_calling_code) {
-          phoneNumberInput.value = data.country_calling_code
-        }
-      })
-      .catch((error) => console.error("Error fetching IP information:", error))
-
-    // Handle form submission
-    const contactForm = document.getElementById(
-      "contact-form"
-    ) as HTMLFormElement
-    if (contactForm) {
-      contactForm.addEventListener("submit", async (event) => {
-        event.preventDefault()
-
-        const formData = new FormData(contactForm)
-        const response = await fetch("api/contact-form", {
-          method: "POST",
-          body: formData,
-        })
-
-        if (response.ok) {
-          console.log("Message sent successfully!")
-          contactForm.reset()
-        } else {
-          console.log("Failed to send message.")
-        }
-      })
-    }
-  })
-</script>
+<script is:inline src="/scripts/contact.js"></script>
