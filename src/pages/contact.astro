@@ -254,8 +254,7 @@ const error = url.searchParams.get("error") === "true"
                           id="form-message"
                           class="!tw-mt-4 !tw-text-sm !tw-text-green-600 !tw-font-medium"
                         >
-                          Thank you! Your message has been sent successfully.
-                          We'll get back to you soon.
+                          Sent successfully. We'll get back to you soon.
                         </div>
                       )
                     }
@@ -265,8 +264,7 @@ const error = url.searchParams.get("error") === "true"
                           id="form-message"
                           class="!tw-mt-4 !tw-text-sm !tw-text-red-600 !tw-font-medium"
                         >
-                          Sorry, there was an error sending your message. Please
-                          try again later.
+                          An error occurred. Please try again later.
                         </div>
                       )
                     }
@@ -287,4 +285,16 @@ const error = url.searchParams.get("error") === "true"
   </div>
 </Layout>
 
+<script is:inline>
+  if (
+    window.location.search.includes("success=true") ||
+    window.location.search.includes("error=true")
+  ) {
+    window.history.replaceState(
+      {},
+      "",
+      window.location.pathname + window.location.search
+    )
+  }
+</script>
 <script is:inline src="/scripts/contact.js"></script>

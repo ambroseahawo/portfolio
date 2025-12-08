@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const success = urlParams.get("success") === "true"
+  const error = urlParams.get("error") === "true"
+  
+  if (success || error) {
+    window.history.replaceState({}, "", `${window.location.pathname}?${urlParams.toString()}`)
+  }
+
   const contactForm = document.getElementById("contact-form")
   const submitButton = document.getElementById("submit-button")
 
@@ -153,6 +161,31 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
   checkFormValidity()
+
+  const formMessage = document.getElementById("form-message")
+  const formMessageJs = document.getElementById("form-message-js")
+
+  if (success && formMessage) {
+    setTimeout(() => {
+      if (contactForm) {
+        contactForm.reset()
+        checkFormValidity()
+      }
+      if (formMessage) {
+        formMessage.style.display = "none"
+      }
+      window.history.replaceState({}, "", window.location.pathname)
+    }, 3000)
+  }
+
+  if (error && formMessage) {
+    setTimeout(() => {
+      if (formMessage) {
+        formMessage.style.display = "none"
+      }
+      window.history.replaceState({}, "", window.location.pathname)
+    }, 5000)
+  }
 
   if (contactForm) {
     const originalButtonText = submitButton?.textContent || "Let's talk"
