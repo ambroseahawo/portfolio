@@ -1,12 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const urlParams = new URLSearchParams(window.location.search)
-  const success = urlParams.get("success") === "true"
-  const error = urlParams.get("error") === "true"
-  
-  if (success || error) {
-    window.history.replaceState({}, "", `${window.location.pathname}?${urlParams.toString()}`)
-  }
-
   const contactForm = document.getElementById("contact-form")
   const submitButton = document.getElementById("submit-button")
 
@@ -162,27 +154,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   checkFormValidity()
 
+  const urlParams = new URLSearchParams(window.location.search)
+  const success = urlParams.get("success") === "true"
+  const error = urlParams.get("error") === "true"
   const formMessage = document.getElementById("form-message")
-  const formMessageJs = document.getElementById("form-message-js")
 
-  if (success && formMessage) {
+  if (success && formMessage && contactForm) {
     setTimeout(() => {
-      if (contactForm) {
-        contactForm.reset()
-        checkFormValidity()
-      }
-      if (formMessage) {
-        formMessage.style.display = "none"
-      }
+      contactForm.reset()
+      checkFormValidity()
+      formMessage.style.display = "none"
       window.history.replaceState({}, "", window.location.pathname)
     }, 3000)
   }
 
   if (error && formMessage) {
     setTimeout(() => {
-      if (formMessage) {
-        formMessage.style.display = "none"
-      }
+      formMessage.style.display = "none"
       window.history.replaceState({}, "", window.location.pathname)
     }, 5000)
   }
@@ -190,17 +178,40 @@ document.addEventListener("DOMContentLoaded", () => {
   if (contactForm) {
     const originalButtonText = submitButton?.textContent || "Let's talk"
     
-    contactForm.addEventListener("submit", (event) => {
+    contactForm.addEventListener("submit", async (event) => {
+      event.preventDefault()
+      
       checkFormValidity()
       
       if (submitButton?.disabled) {
-        event.preventDefault()
         return false
       }
 
       if (submitButton) {
         submitButton.disabled = true
         submitButton.textContent = "Sending..."
+      }
+
+      const formData = new FormData(contactForm)
+      
+      try {
+        const response = await fetch("/", {
+          method: "POST",
+          body: formData,
+        })
+
+        if (response.ok) {
+          window.location.href = "/contact?success=true"
+        } else {
+          window.location.href = "/contact?error=true"
+        }
+      } catch (error) {
+        console.error("Form submission error:", error)
+        if (submitButton) {
+          submitButton.disabled = false
+          submitButton.textContent = originalButtonText
+        }
+        window.location.href = "/contact?error=true"
       }
     })
 
