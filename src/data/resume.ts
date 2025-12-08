@@ -31,10 +31,17 @@ export const resume: Resume = {
   ],
   experience: [
     {
-      period: "Jan 2024 - Present",
-      title: "Python | Scrapy | Django | NodeJS | ReactJS | NextJS | PostgreSQL | AWS",
+      period: "Mar 2025 - Present",
+      title: "Full Stack Developer",
+      company: "MediaPal",
+      description: "Design and deliver high-performance web apps using JavaScript, PHP, Golang, with RESTful APIs, SQL (MySQL/PostgreSQL), and Redis. Build and deploy services in Docker/Kubernetes on Linux, ensuring clean, well-documented code, full-stack troubleshooting, and end-to-end SDLC participation.Contribute to code reviews, CI/CD, and collaborate via Git.",
+      icon: "/images/mpal-dark.svg"
+    },
+    {
+      period: "Jan 2024 - Mar 2025",
+      title: "Web Scraping | Data Engineering",
       company: "Upwork",
-      description: "Build scalable backend systems with Django, Flask, and Node.js (MongoDB/Prisma/PostgreSQL). Integrate frontend apps using React, Next.js, TypeScript, and Tailwind. Skilled in web scraping (Scrapy, BeautifulSoup, Selenium), data analysis (pandas), and managing PostgreSQL, MySQL, and Redis. Experience integrating secure payment gateways and using Git for collaborative development.",
+      description: "Web Scraping and Data Extraction: Perform web scraping and data extraction using Scrapy, BeautifulSoup, Selenium, and pandas, and analyze data for actionable insights. Database and Cache Management: Manage relational databases like PostgreSQL and MySQL, and integrate with Redis Cache. Full-Stack Development: Develop highly-scalable backend systems using Python frameworks like Django and Flask, as well as JavaScript frameworks such as NodeJS with MongoDB or Prisma with PostgreSQL; integrating frontends in NextJS, React, TypeScript, Tailwind. Payment Gateway Integration: Integrate payment gateway APIs, ensuring secure and efficient transactions. Version Control and Collaboration: Utilize Git for version control, managing branching and merging processes effectively.",
       icon: "/images/upwork-logo.png"
     },
     {

@@ -9,3 +9,83 @@
   margin: 1rem 0;
   border-radius: 4px;
 }
+
+/* Sidebar card styling with subtle shadows and borders */
+.sidebar-card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Remove overlay effect from links in sidebar cards */
+.sidebar-card a.c2ers::before,
+.sidebar-card a.c2ers:hover::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Mobile navigation styles */
+@media (max-width: 767px) {
+  /* Hide navigation bar by default on mobile */
+  #navigation-bar.mobile-nav-hidden {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Show navigation bar when toggled */
+  #navigation-bar:not(.mobile-nav-hidden) {
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Make navigation bar fixed/overlay on mobile */
+  #navigation-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 50;
+    background-color: rgb(255 255 255);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Dark mode support for mobile nav */
+  :is(.dark #navigation-bar) {
+    background-color: rgb(15 23 42);
+  }
+
+  /* Show mobile menu toggle button on mobile */
+  .mobile-menu-toggle {
+    display: flex !important;
+    margin-right: 0.75rem;
+  }
+
+  /* Overlay backdrop when menu is open */
+  .mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .mobile-nav-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+/* Hide mobile menu toggle on desktop */
+@media (min-width: 768px) {
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+
+  #navigation-bar.mobile-nav-hidden {
+    transform: none !important;
+  }
+}
