@@ -89,3 +89,476 @@
     transform: none !important;
   }
 }
+
+/* ==================== RESPONSIVE FONT SIZE REDUCTIONS ==================== */
+/* Reduce font sizes on mobile and smaller screens for better readability */
+
+/* Small mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+  /* Large headings - reduce significantly */
+  .ciz93 {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Medium headings */
+  .crvmr {
+    font-size: 1.125rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Small headings */
+  .cjvvo {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Smaller headings */
+  .c86do {
+    font-size: 0.9375rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Body text */
+  .c5rvt {
+    font-size: 0.9375rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Medium text */
+  .c8dzi {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Small text */
+  .cme8e {
+    font-size: 0.8125rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Extra small text */
+  .ck5r6 {
+    font-size: 0.6875rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Buttons - reduce font size and padding */
+  .chuke,
+  .csfon {
+    font-size: 0.8125rem !important;
+    padding: 0.375rem 0.75rem !important;
+  }
+
+  /* Input fields */
+  .c899y,
+  .csvua,
+  .cscd2,
+  .cmd8f {
+    font-size: 0.875rem !important;
+    padding: 0.4375rem 0.625rem !important;
+  }
+
+  /* Images - scale down proportionally */
+  img {
+    max-width: 100% !important;
+  }
+
+  .c3iz2 {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .c906c {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  /* Reduce spacing for better mobile layout */
+  .cme53 {
+    margin-bottom: 0.75rem !important;
+  }
+
+  .c2r2p {
+    padding-bottom: 1.5rem !important;
+  }
+}
+
+/* Mobile devices (481px - 640px) */
+@media (min-width: 481px) and (max-width: 640px) {
+  /* Large headings - reduce moderately */
+  .ciz93 {
+    font-size: 1.75rem !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Medium headings */
+  .crvmr {
+    font-size: 1.25rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Small headings */
+  .cjvvo {
+    font-size: 1.0625rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Smaller headings */
+  .c86do {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Body text */
+  .c5rvt {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Medium text */
+  .c8dzi {
+    font-size: 1.125rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Small text */
+  .cme8e {
+    font-size: 0.84375rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Buttons */
+  .chuke,
+  .csfon {
+    font-size: 0.84375rem !important;
+    padding: 0.4375rem 0.875rem !important;
+  }
+
+  /* Input fields */
+  .c899y,
+  .csvua,
+  .cscd2,
+  .cmd8f {
+    font-size: 0.90625rem !important;
+  }
+
+  /* Images */
+  .c3iz2 {
+    width: 52px !important;
+    height: 52px !important;
+  }
+
+  .c906c {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
+
+/* Small tablets and large phones (641px - 767px) */
+@media (min-width: 641px) and (max-width: 767px) {
+  /* Large headings - slight reduction */
+  .ciz93 {
+    font-size: 2rem !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Medium headings */
+  .crvmr {
+    font-size: 1.375rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Small headings */
+  .cjvvo {
+    font-size: 1.125rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Body text */
+  .c5rvt {
+    font-size: 1.0625rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Buttons */
+  .chuke,
+  .csfon {
+    font-size: 0.84375rem !important;
+  }
+
+  /* Reduce top padding on non-home pages for tablets */
+  .c94qd {
+    padding-top: 1.5rem !important;
+  }
+
+  .cr7br {
+    padding-top: 2rem !important;
+  }
+}
+
+/* Base font size reduction for all mobile devices */
+@media (max-width: 767px) {
+  /* Reduce base font size slightly */
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    font-size: 0.9375rem;
+  }
+
+  /* Ensure all text elements scale down proportionally */
+  p, span, div, a, li {
+    font-size: inherit;
+  }
+
+  /* Reduce icon sizes in buttons and headers */
+  svg {
+    max-width: 100%;
+  }
+
+  /* Scale down navigation and header elements */
+  .cpk71 {
+    margin-bottom: 1rem !important;
+  }
+
+  .cajes {
+    padding: 1rem 1.5rem !important;
+  }
+
+  /* Reduce top padding on non-home pages */
+  .c94qd {
+    padding-top: 0.5rem !important;
+  }
+
+  .cr7br {
+    padding-top: 1rem !important;
+  }
+
+  /* Reduce spacing in content sections */
+  .c8b8k {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Reduce header padding */
+  .cdxms {
+    padding: 0.5rem 0 !important;
+  }
+
+  /* Article cards and content */
+  .c6969 {
+    margin-top: 2rem !important;
+  }
+
+  /* Footer text */
+  .footer_copy,
+  .footer_subtitle {
+    font-size: 0.8125rem !important;
+  }
+
+  /* Article content - reduce font sizes in article body */
+  article {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  article h1 {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  article h2 {
+    font-size: 1.25rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.625rem !important;
+  }
+
+  article h3 {
+    font-size: 1.125rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  article h4 {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  article p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  article ul,
+  article ol {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    padding-left: 1.25rem;
+  }
+
+  article li {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Code blocks - scale down */
+  article code {
+    font-size: 0.8125rem !important;
+    padding: 0.125rem 0.375rem !important;
+  }
+
+  article pre {
+    font-size: 0.8125rem !important;
+    padding: 0.875rem !important;
+    margin: 1rem 0 !important;
+  }
+
+  article pre code {
+    font-size: 0.8125rem !important;
+    padding: 0 !important;
+  }
+
+  /* Blockquotes */
+  article blockquote {
+    font-size: 0.9375rem;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+  }
+
+  /* Tables */
+  article table {
+    font-size: 0.875rem;
+  }
+
+  article th,
+  article td {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.875rem;
+  }
+
+  /* Images in articles */
+  article img {
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 1rem 0 !important;
+  }
+
+  /* Links in articles */
+  article a {
+    font-size: inherit;
+  }
+
+  /* Strong/bold text */
+  article strong {
+    font-size: inherit;
+  }
+
+  /* Small text elements */
+  article small {
+    font-size: 0.8125rem;
+  }
+
+  /* Navigation bar text */
+  nav a {
+    font-size: 0.875rem !important;
+  }
+
+  /* Sidebar text */
+  .sidebar-card {
+    font-size: 0.875rem;
+  }
+
+  .sidebar-card h3,
+  .sidebar-card h4 {
+    font-size: 0.9375rem !important;
+  }
+
+  /* Project cards and featured items */
+  .c9noy {
+    gap: 1rem !important;
+  }
+}
+
+/* ==================== TABLET AND DESKTOP SPACING REDUCTIONS ==================== */
+/* Reduce top spacing proportionally on larger screens */
+
+/* Tablets (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Reduce top padding on non-home pages */
+  .c94qd {
+    padding-top: 1.75rem !important;
+  }
+
+  .cr7br {
+    padding-top: 2.25rem !important;
+  }
+
+  /* Reduce main content padding slightly */
+  .cajes {
+    padding: 1.5rem 2rem !important;
+  }
+
+  /* Reduce header spacing */
+  .cpk71 {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Reduce content section spacing */
+  .c8b8k {
+    margin-bottom: 2rem !important;
+  }
+
+  /* Reduce header padding */
+  .cdxms {
+    padding: 0.75rem 0 !important;
+  }
+}
+
+/* Desktop (1024px and above) */
+@media (min-width: 1024px) {
+  /* Reduce top padding on non-home pages - proportional reduction */
+  .c94qd {
+    padding-top: 2rem !important;
+  }
+
+  .cr7br {
+    padding-top: 2.5rem !important;
+  }
+
+  /* Slightly reduce main content padding */
+  .cajes {
+    padding: 1.75rem 2rem !important;
+  }
+
+  /* Reduce header spacing */
+  .cpk71 {
+    margin-bottom: 1.75rem !important;
+  }
+
+  /* Reduce content section spacing */
+  .c8b8k {
+    margin-bottom: 2.25rem !important;
+  }
+
+  /* Reduce header padding */
+  .cdxms {
+    padding: 0.875rem 0 !important;
+  }
+}
+
+/* Center the SVG icon inside the circular back button */
+.cec5b a.c3iz2 {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.cec5b a.c3iz2 svg {
+  display: block !important;
+  margin: 0 auto !important;
+}
