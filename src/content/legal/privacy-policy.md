@@ -11,8 +11,7 @@ At **infranotes.dev**, ("we", "us", "our"), our mission is to share technical in
 ## 2. Information We Collect
 
 ### a. Personal Information (You Provide Directly)
-- Contact Form: Name, email address, and message content.
-- Newsletter Signup: Email address.
+- Contact Form: Name, email address, phone number, company, and message content.
 - Comments or Feedback (if applicable): Name, email, and message.
 
 ### b. Automated Information (Collected Indirectly)
@@ -23,21 +22,19 @@ At **infranotes.dev**, ("we", "us", "our"), our mission is to share technical in
 ## 3. How We Use Your Information
 
 - To respond to messages you send through contact forms.
-- To send newsletters and technical updates (with your consent).
 - To analyze traffic and site usage with privacy-focused analytics.
 - To maintain site performance, security, and reliability.
 
 ## 4. Legal Bases for Processing (GDPR Compliance)
 
 We process your information under one or more of the following legal bases:
-- Your consent (e.g., when signing up for the newsletter).
+- Your consent (e.g., when submitting a contact form).
 - Our legitimate interest (e.g., to maintain and improve the website).
 - Compliance with legal obligations.
 
 ## 5. Sharing of Information
 
 We do **not** sell, rent, or trade your data. We may share your information with:
-- Email service providers (e.g., Buttondown, Mailchimp) for newsletter delivery.
 - Analytics services (e.g., Plausible, Fathom — no personally identifiable info).
 - Infrastructure providers (e.g., Vercel, Cloudflare) for hosting and security.
 - Law enforcement or government if required by law.
@@ -65,7 +62,7 @@ You can control cookie preferences via your browser settings.
 
 We retain your personal data:
 - As long as needed to fulfill the purpose it was collected for.
-- Or until you request deletion (e.g., unsubscribe from the newsletter).
+- Or until you request deletion.
 
 ## 9. Data Security
 
@@ -77,7 +74,7 @@ We implement technical and organizational measures including:
 
 ## 10. International Data Transfers
 
-If you're accessing this site outside of [Your Country], your data may be transferred to and processed in that country. We ensure appropriate safeguards under GDPR/CCPA requirements.
+If you're accessing this site from outside the country where our servers are located, your data may be transferred to and processed in that country. We ensure appropriate safeguards under GDPR/CCPA requirements.
 
 ## 11. Third-Party Links
 
