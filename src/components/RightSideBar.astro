@@ -6,7 +6,7 @@ import { getSortedArticles, getFeaturedArticles } from "../lib/articles";
 const sortedArticles = await getSortedArticles()
 let featuredArticles = getFeaturedArticles(sortedArticles)
 
-const currentPath = Astro.url.pathname
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/"
 const currentSlug = currentPath.startsWith("/blueprints/") 
   ? currentPath.replace("/blueprints/", "").replace(/\/$/, "")
   : ""
@@ -14,7 +14,7 @@ featuredArticles = featuredArticles.filter((article) => article.slug !== current
 
 const showPopularPosts = currentPath.startsWith("/blueprints/") && featuredArticles.length > 0
 
-const isResumePath = currentPath == "/resume"
+const isResumePath = currentPath === "/resume"
 const isHomePage = currentPath === "/"
 const isProjectsPath = currentPath === "/projects"
 const isContactPath = currentPath === "/contact"

@@ -2,16 +2,12 @@
 import type { NavigationItem } from "../data/navigation"
 import navigationItems from "../data/navigation"
 
-const currentPath = Astro.url.pathname
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/"
 const isHomeActive =
-  [
-    "/",
-    "/privacy-policy/",
-    "/terms-of-use/",
-    "/privacy-policy",
-    "/terms-of-use",
-  ].includes(currentPath) || currentPath.startsWith("/blueprints/")
-// currentPath === "/" || currentPath.startsWith("/blueprints/")
+  currentPath === "/" ||
+  currentPath === "/privacy-policy" ||
+  currentPath === "/terms-of-use" ||
+  currentPath.startsWith("/blueprints/")
 
 const itemsWithActiveState = navigationItems.map((item: NavigationItem) => ({
   ...item,
