@@ -260,19 +260,21 @@ const error = url.searchParams.get("error") === "true"
 
   <div
     id="success-modal"
-    class="!tw-fixed !tw-inset-0 !tw-z-50 !tw-flex !tw-items-center !tw-justify-center !tw-bg-black !tw-bg-opacity-50 !tw-opacity-0 !tw-pointer-events-none !tw-transition-opacity !tw-duration-300"
+    class="!tw-fixed !tw-inset-0 !tw-z-50 !tw-flex !tw-items-center !tw-justify-center !tw-bg-black !tw-bg-opacity-50 !tw-p-4 !tw-opacity-0 !tw-pointer-events-none !tw-transition-opacity !tw-duration-300"
     style="display: none;"
   >
     <div
-      class="!tw-bg-white !tw-rounded-lg !tw-shadow-xl !tw-max-w-md !tw-w-full !tw-mx-4 !tw-p-6 !tw-transform !tw-translate-y-4 !tw-transition-transform !tw-duration-300"
+      class="!tw-bg-white !tw-rounded-lg !tw-shadow-xl !tw-max-w-md !tw-w-full !tw-p-4 sm:!tw-p-6 !tw-transform !tw-translate-y-4 !tw-transition-transform !tw-duration-300"
       id="success-modal-content"
     >
-      <div class="!tw-flex !tw-items-center !tw-justify-center !tw-mb-4">
+      <div
+        class="!tw-flex !tw-items-center !tw-justify-center !tw-mb-3 sm:!tw-mb-4"
+      >
         <div
-          class="!tw-w-16 !tw-h-16 !tw-bg-green-100 !tw-rounded-full !tw-flex !tw-items-center !tw-justify-center"
+          class="!tw-w-12 !tw-h-12 sm:!tw-w-16 sm:!tw-h-16 !tw-bg-green-100 !tw-rounded-full !tw-flex !tw-items-center !tw-justify-center"
         >
           <svg
-            class="!tw-w-8 !tw-h-8 !tw-text-green-600"
+            class="!tw-w-6 !tw-h-6 sm:!tw-w-8 sm:!tw-h-8 !tw-text-green-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -286,16 +288,18 @@ const error = url.searchParams.get("error") === "true"
         </div>
       </div>
       <h3
-        class="!tw-text-xl !tw-font-semibold !tw-text-gray-900 !tw-text-center !tw-mb-2"
+        class="!tw-text-lg sm:!tw-text-xl !tw-font-semibold !tw-text-gray-900 !tw-text-center !tw-mb-2"
       >
         Message Sent!
       </h3>
-      <p class="!tw-text-gray-600 !tw-text-center !tw-mb-6">
+      <p
+        class="!tw-text-sm sm:!tw-text-base !tw-text-gray-600 !tw-text-center !tw-mb-4 sm:!tw-mb-6"
+      >
         Thank you for reaching out. We'll get back to you soon.
       </p>
       <button
         id="close-success-modal"
-        class="!tw-w-full !tw-bg-green-600 !tw-text-white !tw-py-2 !tw-px-4 !tw-rounded-md !tw-font-medium hover:!tw-bg-green-700 !tw-transition-colors"
+        class="cwlj7 czzu3 craoz chuke !tw-block !tw-w-full !tw-rounded-md !tw-px-3.5 !tw-py-2.5 !tw-text-center !tw-text-sm !tw-font-semibold !tw-text-white !tw-shadow-xs focus-visible:!tw-outline-2 focus-visible:!tw-outline-offset-2"
       >
         Close
       </button>
@@ -304,19 +308,21 @@ const error = url.searchParams.get("error") === "true"
 
   <div
     id="error-modal"
-    class="!tw-fixed !tw-inset-0 !tw-z-50 !tw-flex !tw-items-center !tw-justify-center !tw-bg-black !tw-bg-opacity-50 !tw-opacity-0 !tw-pointer-events-none !tw-transition-opacity !tw-duration-300"
+    class="!tw-fixed !tw-inset-0 !tw-z-50 !tw-flex !tw-items-center !tw-justify-center !tw-bg-black !tw-bg-opacity-50 !tw-p-4 !tw-opacity-0 !tw-pointer-events-none !tw-transition-opacity !tw-duration-300"
     style="display: none;"
   >
     <div
-      class="!tw-bg-white !tw-rounded-lg !tw-shadow-xl !tw-max-w-md !tw-w-full !tw-mx-4 !tw-p-6 !tw-transform !tw-translate-y-4 !tw-transition-transform !tw-duration-300"
+      class="!tw-bg-white !tw-rounded-lg !tw-shadow-xl !tw-max-w-md !tw-w-full !tw-p-4 sm:!tw-p-6 !tw-transform !tw-translate-y-4 !tw-transition-transform !tw-duration-300"
       id="error-modal-content"
     >
-      <div class="!tw-flex !tw-items-center !tw-justify-center !tw-mb-4">
+      <div
+        class="!tw-flex !tw-items-center !tw-justify-center !tw-mb-3 sm:!tw-mb-4"
+      >
         <div
-          class="!tw-w-16 !tw-h-16 !tw-bg-red-100 !tw-rounded-full !tw-flex !tw-items-center !tw-justify-center"
+          class="!tw-w-12 !tw-h-12 sm:!tw-w-16 sm:!tw-h-16 !tw-bg-red-100 !tw-rounded-full !tw-flex !tw-items-center !tw-justify-center"
         >
           <svg
-            class="!tw-w-8 !tw-h-8 !tw-text-red-600"
+            class="!tw-w-6 !tw-h-6 sm:!tw-w-8 sm:!tw-h-8 !tw-text-red-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -330,16 +336,18 @@ const error = url.searchParams.get("error") === "true"
         </div>
       </div>
       <h3
-        class="!tw-text-xl !tw-font-semibold !tw-text-gray-900 !tw-text-center !tw-mb-2"
+        class="!tw-text-lg sm:!tw-text-xl !tw-font-semibold !tw-text-gray-900 !tw-text-center !tw-mb-2"
       >
-        Error Occurred
+        Failed
       </h3>
-      <p class="!tw-text-gray-600 !tw-text-center !tw-mb-6">
-        Sorry, there was an error sending your message. Please try again later.
+      <p
+        class="!tw-text-sm sm:!tw-text-base !tw-text-gray-600 !tw-text-center !tw-mb-4 sm:!tw-mb-6"
+      >
+        An error occurred. Please try again later.
       </p>
       <button
         id="close-error-modal"
-        class="!tw-w-full !tw-bg-red-600 !tw-text-white !tw-py-2 !tw-px-4 !tw-rounded-md !tw-font-medium hover:!tw-bg-red-700 !tw-transition-colors"
+        class="cwlj7 czzu3 craoz chuke !tw-block !tw-w-full !tw-rounded-md !tw-px-3.5 !tw-py-2.5 !tw-text-center !tw-text-sm !tw-font-semibold !tw-text-white !tw-shadow-xs focus-visible:!tw-outline-2 focus-visible:!tw-outline-offset-2"
       >
         Close
       </button>
