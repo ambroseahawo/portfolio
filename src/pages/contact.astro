@@ -1,5 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro"
+
+const url = Astro.url
+const success = url.searchParams.get("success") === "true"
+const error = url.searchParams.get("error") === "true"
 ---
 
 <Layout title="Contact">
@@ -78,8 +82,21 @@ import Layout from "../layouts/Layout.astro"
               <div class="!tw-isolate">
                 <form
                   id="contact-form"
+                  name="contact"
+                  method="POST"
+                  data-netlify="true"
+                  netlify-honeypot="bot-field"
+                  action="/contact"
                   class="!tw-mt-8 !tw-max-w-xl sm:!tw-mt-10"
                 >
+                  <input type="hidden" name="form-name" value="contact" />
+                  <p style="display: none">
+                    <label>
+                      Don't fill this out if you're human: <input
+                        name="bot-field"
+                      />
+                    </label>
+                  </p>
                   <div
                     class="!tw-grid !tw-grid-cols-1 !tw-gap-x-8 !tw-gap-y-6 sm:!tw-grid-cols-2"
                   >
@@ -193,7 +210,7 @@ import Layout from "../layouts/Layout.astro"
                             id="phone-number"
                             class="c899y !tw-rounded-none !tw-block !tw-min-w-0 !tw-grow !tw-py-1.5 !tw-pr-3 !tw-pl-1 !tw-text-base !tw-text-gray-900 !tw-placeholder:text-gray-400 focus:!tw-outline-none sm:!tw-text-sm/6"
                             placeholder="+1234567890 or 1234567890"
-                            pattern="[\d\s\+\-\(\)]{7,20}"
+                            pattern="[0-9\s\+\-\(\)]{7,20}"
                             required
                           />
                         </div>
@@ -231,6 +248,34 @@ import Layout from "../layouts/Layout.astro"
                       class="cwlj7 czzu3 craoz chuke !tw-block !tw-w-full !tw-rounded-md !tw-px-3.5 !tw-py-2.5 !tw-text-center !tw-text-sm !tw-font-semibold !tw-text-white !tw-shadow-xs focus-visible:!tw-outline-2 focus-visible:!tw-outline-offset-2 disabled:!tw-opacity-50 disabled:!tw-cursor-not-allowed"
                       >Let's talk</button
                     >
+                    {
+                      success && (
+                        <div
+                          id="form-message"
+                          class="!tw-mt-4 !tw-text-sm !tw-text-green-600 !tw-font-medium"
+                        >
+                          Thank you! Your message has been sent successfully.
+                          We'll get back to you soon.
+                        </div>
+                      )
+                    }
+                    {
+                      error && (
+                        <div
+                          id="form-message"
+                          class="!tw-mt-4 !tw-text-sm !tw-text-red-600 !tw-font-medium"
+                        >
+                          Sorry, there was an error sending your message. Please
+                          try again later.
+                        </div>
+                      )
+                    }
+                    <div
+                      id="form-message-js"
+                      class="!tw-mt-4 !tw-text-sm"
+                      style="display: none;"
+                    >
+                    </div>
                   </div>
                 </form>
               </div>

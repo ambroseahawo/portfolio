@@ -155,26 +155,30 @@ document.addEventListener("DOMContentLoaded", () => {
   checkFormValidity()
 
   if (contactForm) {
-    contactForm.addEventListener("submit", async (event) => {
-      event.preventDefault()
-
+    const originalButtonText = submitButton?.textContent || "Let's talk"
+    
+    contactForm.addEventListener("submit", (event) => {
       checkFormValidity()
+      
       if (submitButton?.disabled) {
-        return
+        event.preventDefault()
+        return false
       }
 
-      const formData = new FormData(contactForm)
-      const response = await fetch("api/contact-form", {
-        method: "POST",
-        body: formData,
-      })
+      if (submitButton) {
+        submitButton.disabled = true
+        submitButton.textContent = "Sending..."
+      }
+    })
 
-      if (response.ok) {
-        console.log("Message sent successfully!")
-        contactForm.reset()
-        checkFormValidity()
-      } else {
-        console.log("Failed to send message.")
+    formFields.forEach((field) => {
+      if (field) {
+        field.addEventListener("input", () => {
+          if (submitButton && submitButton.textContent === "Sending...") {
+            submitButton.textContent = originalButtonText
+            checkFormValidity()
+          }
+        })
       }
     })
   }
