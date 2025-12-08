@@ -154,23 +154,103 @@ document.addEventListener("DOMContentLoaded", () => {
 
   checkFormValidity()
 
+  const successModal = document.getElementById("success-modal")
+  const errorModal = document.getElementById("error-modal")
+  const successModalContent = document.getElementById("success-modal-content")
+  const errorModalContent = document.getElementById("error-modal-content")
+  const closeSuccessModal = document.getElementById("close-success-modal")
+  const closeErrorModal = document.getElementById("close-error-modal")
+
+  const showSuccessModal = () => {
+    if (successModal && successModalContent) {
+      successModal.style.display = "flex"
+      setTimeout(() => {
+        successModal.classList.remove("!tw-opacity-0", "!tw-pointer-events-none")
+        successModal.classList.add("!tw-opacity-100")
+        successModalContent.classList.remove("!tw-translate-y-4")
+        successModalContent.classList.add("!tw-translate-y-0")
+      }, 10)
+    }
+  }
+
+  const hideSuccessModal = () => {
+    if (successModal && successModalContent) {
+      successModal.classList.add("!tw-opacity-0", "!tw-pointer-events-none")
+      successModal.classList.remove("!tw-opacity-100")
+      successModalContent.classList.add("!tw-translate-y-4")
+      successModalContent.classList.remove("!tw-translate-y-0")
+      setTimeout(() => {
+        successModal.style.display = "none"
+      }, 300)
+    }
+  }
+
+  const showErrorModal = () => {
+    if (errorModal && errorModalContent) {
+      errorModal.style.display = "flex"
+      setTimeout(() => {
+        errorModal.classList.remove("!tw-opacity-0", "!tw-pointer-events-none")
+        errorModal.classList.add("!tw-opacity-100")
+        errorModalContent.classList.remove("!tw-translate-y-4")
+        errorModalContent.classList.add("!tw-translate-y-0")
+      }, 10)
+    }
+  }
+
+  const hideErrorModal = () => {
+    if (errorModal && errorModalContent) {
+      errorModal.classList.add("!tw-opacity-0", "!tw-pointer-events-none")
+      errorModal.classList.remove("!tw-opacity-100")
+      errorModalContent.classList.add("!tw-translate-y-4")
+      errorModalContent.classList.remove("!tw-translate-y-0")
+      setTimeout(() => {
+        errorModal.style.display = "none"
+      }, 300)
+    }
+  }
+
+  if (closeSuccessModal) {
+    closeSuccessModal.addEventListener("click", hideSuccessModal)
+  }
+
+  if (closeErrorModal) {
+    closeErrorModal.addEventListener("click", hideErrorModal)
+  }
+
+  if (successModal) {
+    successModal.addEventListener("click", (e) => {
+      if (e.target === successModal) {
+        hideSuccessModal()
+      }
+    })
+  }
+
+  if (errorModal) {
+    errorModal.addEventListener("click", (e) => {
+      if (e.target === errorModal) {
+        hideErrorModal()
+      }
+    })
+  }
+
   const urlParams = new URLSearchParams(window.location.search)
   const success = urlParams.get("success") === "true"
   const error = urlParams.get("error") === "true"
-  const formMessage = document.getElementById("form-message")
 
-  if (success && formMessage && contactForm) {
+  if (success && contactForm) {
+    showSuccessModal()
     setTimeout(() => {
       contactForm.reset()
       checkFormValidity()
-      formMessage.style.display = "none"
+      hideSuccessModal()
       window.history.replaceState({}, "", window.location.pathname)
     }, 3000)
   }
 
-  if (error && formMessage) {
+  if (error) {
+    showErrorModal()
     setTimeout(() => {
-      formMessage.style.display = "none"
+      hideErrorModal()
       window.history.replaceState({}, "", window.location.pathname)
     }, 5000)
   }
@@ -201,9 +281,25 @@ document.addEventListener("DOMContentLoaded", () => {
         })
 
         if (response.ok) {
-          window.location.href = "/contact?success=true"
+          contactForm.reset()
+          checkFormValidity()
+          if (submitButton) {
+            submitButton.disabled = false
+            submitButton.textContent = originalButtonText
+          }
+          showSuccessModal()
+          setTimeout(() => {
+            hideSuccessModal()
+          }, 3000)
         } else {
-          window.location.href = "/contact?error=true"
+          if (submitButton) {
+            submitButton.disabled = false
+            submitButton.textContent = originalButtonText
+          }
+          showErrorModal()
+          setTimeout(() => {
+            hideErrorModal()
+          }, 5000)
         }
       } catch (error) {
         console.error("Form submission error:", error)
@@ -211,7 +307,10 @@ document.addEventListener("DOMContentLoaded", () => {
           submitButton.disabled = false
           submitButton.textContent = originalButtonText
         }
-        window.location.href = "/contact?error=true"
+        showErrorModal()
+        setTimeout(() => {
+          hideErrorModal()
+        }, 5000)
       }
     })
 
