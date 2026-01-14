@@ -9,7 +9,10 @@ const articlesCollection = defineCollection({
     publishedAt: z.date(),
     updatedAt: z.date().optional(),
     readTime: z.number(),
-    featured: z.boolean().default(false)
+    featured: z.boolean().default(false),
+    category: z.enum(['data-engineering', 'backend-architecture', 'system-design']).default('data-engineering'),
+    tags: z.array(z.string()).default([]),
+    series: z.string().optional()
   }),
 });
 

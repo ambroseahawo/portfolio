@@ -8,10 +8,30 @@ interface Props {
 const { tabs, activeTab } = Astro.props
 ---
 
-<ul class="cg3vi crdpf cnxqt c8z7y cme8e cfwvb" id="tabs">
+<ul
+  class="cg3vi crdpf cnxqt c8z7y cme8e cfwvb"
+  id="tabs"
+  style="overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;"
+>
+  <style>
+    #tabs {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    #tabs::-webkit-scrollbar {
+      display: none;
+    }
+    #tabs li {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+  </style>
   {
     tabs.map((tab) => (
-      <li class="cz4pw c59mu">
+      <li class="cz4pw c59mu" style="flex-shrink: 0; white-space: nowrap;">
         <button
           class={`chipd cen0e ${
             tab.id === activeTab

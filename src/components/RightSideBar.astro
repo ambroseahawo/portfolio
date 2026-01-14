@@ -1,6 +1,7 @@
 ---
 import { languages } from '../data/languages';
 import { technicalSkills } from '../data/technicalSkills';
+import { services } from '../data/service';
 import { getSortedArticles, getFeaturedArticles } from "../lib/articles";
 
 const sortedArticles = await getSortedArticles()
@@ -14,7 +15,7 @@ featuredArticles = featuredArticles.filter((article) => article.slug !== current
 
 const showPopularPosts = currentPath.startsWith("/blueprints/") && featuredArticles.length > 0
 
-const isResumePath = currentPath === "/resume"
+const isResumePath = currentPath === "/experience"
 const isHomePage = currentPath === "/"
 const isProjectsPath = currentPath === "/projects"
 const isContactPath = currentPath === "/contact"
@@ -34,11 +35,32 @@ const servicesLinkText = isContactPath ? "View Projects" : "Learn More"
 ---
 
 <aside class="cd6k2 cf0x4 csb3e">
+  <style>
+    /* Hide widgets on mobile, show on tablet+ */
+    @media (max-width: 767px) {
+      .sidebar-card.hide-mobile {
+        display: none !important;
+      }
+    }
+    @media (min-width: 768px) {
+      .sidebar-card.hide-mobile {
+        display: block !important;
+      }
+    }
+    /* Ensure services list is always vertical */
+    .services-list {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .services-list li {
+      width: 100% !important;
+    }
+  </style>
   <div class="c92wf">
-    <!-- Personal CTA Widget (Home page only) -->
+    <!-- Personal CTA Widget (Home page only) - Hidden on mobile -->
     {
       showPersonalCTA ? (
-        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card hide-mobile">
           <div class="cpynq c670g cec5b">Need Help?</div>
           <p class="cxslc c2bb0 cme8e" style="margin-bottom: 1rem;">
             Need help with your infrastructure? Let's talk about building secure, scalable systems.
@@ -54,10 +76,10 @@ const servicesLinkText = isContactPath ? "View Projects" : "Learn More"
       ) : null
     }
 
-    <!-- Related Articles Widget (Projects and Contact pages) -->
+    <!-- Related Articles Widget (Projects and Contact pages) - Hidden on mobile -->
     {
       showRelatedArticles ? (
-        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card hide-mobile">
           <div class="cpynq c670g cec5b">Related Articles</div>
           <ul class="c3y7y">
             {relatedArticles.map((article) => (
@@ -76,28 +98,18 @@ const servicesLinkText = isContactPath ? "View Projects" : "Learn More"
       ) : null
     }
 
-    <!-- Services Widget (Home, Projects, Contact pages) -->
+    <!-- Services Widget (Home, Projects, Contact pages) - Always visible -->
     {
       showServices ? (
         <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
           <div class="cpynq c670g cec5b">Services</div>
-          <ul class="c3y7y" style="list-style: none; padding: 0;">
-            <li class="cz5kb" style="padding: 0.25rem 0;">
-              <span class="chugl cfxlx">—</span>{" "}
-              <span class="cxslc c2bb0 cme8e">Backend Architecture</span>
-            </li>
-            <li class="cz5kb" style="padding: 0.25rem 0;">
-              <span class="chugl cfxlx">—</span>{" "}
-              <span class="cxslc c2bb0 cme8e">API Design & Development</span>
-            </li>
-            <li class="cz5kb" style="padding: 0.25rem 0;">
-              <span class="chugl cfxlx">—</span>{" "}
-              <span class="cxslc c2bb0 cme8e">Infrastructure Consulting</span>
-            </li>
-            <li class="cz5kb" style="padding: 0.25rem 0;">
-              <span class="chugl cfxlx">—</span>{" "}
-              <span class="cxslc c2bb0 cme8e">System Security Audits</span>
-            </li>
+          <ul class="c3y7y services-list" style="list-style: none; padding: 0;">
+            {services.map((service) => (
+              <li class="cz5kb" style="padding: 0.25rem 0;">
+                <span class="chugl cfxlx">—</span>{" "}
+                <span class="cxslc c2bb0 cme8e">{service.name}</span>
+              </li>
+            ))}
           </ul>
           <a
             href={servicesLinkHref}
@@ -118,10 +130,10 @@ const servicesLinkText = isContactPath ? "View Projects" : "Learn More"
       ) : null
     }
 
-    <!-- Projects Link Widget (Home page only) -->
+    <!-- Projects Link Widget (Home page only) - Hidden on mobile -->
     {
       showProjectsLink ? (
-        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card hide-mobile">
           <div class="cpynq c670g cec5b" style="margin-bottom: 0.75rem;">Projects</div>
           <p class="cxslc c2bb0 cme8e" style="margin-bottom: 1rem;">
             Explore my portfolio of client projects and tutorials.
@@ -147,7 +159,7 @@ const servicesLinkText = isContactPath ? "View Projects" : "Learn More"
 
     {
       showPopularPosts ? (
-        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+        <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card hide-mobile">
           <div class="cpynq c670g cec5b">Featured Posts</div>
           <ul class="c3y7y">
             {featuredArticles.map((article) => (
@@ -166,9 +178,9 @@ const servicesLinkText = isContactPath ? "View Projects" : "Learn More"
       ) : null
     }
 
-    <!-- Technical Skills widget -->
+    <!-- Technical Skills widget - Hidden on mobile -->
     {isResumePath? (
-    <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+    <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card hide-mobile">
       <div class="cpynq c670g cec5b">Technical Skills</div>
       <ul class="c3y7y">
         {technicalSkills.map((skill) => (
@@ -190,7 +202,7 @@ const servicesLinkText = isContactPath ? "View Projects" : "Learn More"
       </ul>
     </div>
     
-    <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card">
+    <div class="cg3vi cj965 cry3b c81t6 cax03 c1gvt czh94 czz51 c90wr c5oxi sidebar-card hide-mobile">
       <div class="cpynq c670g cec5b">Languages</div>
       <ul class="c3y7y">
         {languages.map((language) => (

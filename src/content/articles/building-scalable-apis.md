@@ -2,9 +2,11 @@
 title: "Building Scalable APIs: Design Patterns That Actually Work"
 coverImage: "/images/building-scalable-apis.jpg"
 excerpt: "Comprehensive guide to designing REST and GraphQL APIs with rate-limiting, versioning, pagination, and authentication"
-publishedAt: 2025-01-10T00:00:00.000Z
+publishedAt: 2025-04-10T00:00:00.000Z
 readTime: 8
 featured: true
+category: backend-architecture
+tags: ["REST", "GraphQL", "API Design", "Rate Limiting", "Authentication"]
 ---
 
 Modern APIs must handle thousands to millions of requests while maintaining performance, security, and developer experience. Let's examine proven patterns that scale.

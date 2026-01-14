@@ -4,9 +4,10 @@ import ArticleCard from "./ArticleCard.astro"
 
 interface Props {
   articles: CollectionEntry<"articles">[]
+  showCategory?: boolean
 }
 
-const { articles } = Astro.props
+const { articles, showCategory = false } = Astro.props
 ---
 
 <div>
@@ -22,6 +23,9 @@ const { articles } = Astro.props
         image={article.data.coverImage}
         excerpt={article.data.excerpt}
         slug={article.slug}
+        category={article.data.category}
+        tags={article.data.tags}
+        showCategory={showCategory}
       />
     ))
   }

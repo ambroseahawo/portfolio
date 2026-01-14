@@ -6,7 +6,7 @@ interface Education {
   icon: string;
 }
 
-interface Experience {
+interface WorkExperience {
   period: string;
   title: string;
   company: string;
@@ -14,12 +14,12 @@ interface Experience {
   icon: string;
 }
 
-interface Resume {
+interface ExperienceData {
   education: Education[];
-  experience: Experience[];
+  workExperience: WorkExperience[];
 }
 
-export const resume: Resume = {
+export const experience: ExperienceData = {
   education: [
     {
       period: "Aug 2016 - Nov 2021",
@@ -29,7 +29,7 @@ export const resume: Resume = {
       icon: "/images/mu-logo.png"
     }
   ],
-  experience: [
+  workExperience: [
     {
       period: "Mar 2025 - Present",
       title: "Full Stack Developer",

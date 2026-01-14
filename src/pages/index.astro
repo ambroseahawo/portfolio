@@ -1,13 +1,20 @@
 ---
+import type { CollectionEntry } from "astro:content"
 import ArticlesList from "../components/ArticlesList.astro"
 import FeaturedProjects from "../components/FeaturedProjects.astro"
 import Tabs from "../components/Tabs.astro"
 import Tutorials from "../components/Tutorials.astro"
+import { articleCategories } from "../data/articleCategories"
 import { tutorials } from "../data/tutorials"
 import Layout from "../layouts/Layout.astro"
-import { getSortedArticles } from "../lib/articles"
+import { getArticlesByCategory, getSortedArticles } from "../lib/articles"
 
-const sortedArticles = await getSortedArticles()
+let sortedArticles: CollectionEntry<"articles">[] = []
+try {
+  sortedArticles = await getSortedArticles()
+} catch (error) {
+  console.error("Error loading articles:", error)
+}
 
 // Sort tutorials by publishedAt date in descending order
 const sortedTutorials = [...tutorials].sort(
@@ -15,13 +22,21 @@ const sortedTutorials = [...tutorials].sort(
     new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
 )
 
-const tabs = [{ id: "coding", label: "Coding" }]
+// Only show category tabs that have articles
+const categoryTabs = articleCategories
+  .filter((cat) => {
+    const articlesInCategory = getArticlesByCategory(sortedArticles, cat.id)
+    return articlesInCategory.length > 0
+  })
+  .map((cat) => ({
+    id: cat.id,
+    label: cat.label,
+  }))
+
+const tabs = [{ id: "all", label: "All" }, ...categoryTabs]
 
 if (sortedTutorials.length > 0)
   tabs.push({ id: "tutorials", label: "Tutorials" })
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout title="Infranotes - Home">
@@ -33,29 +48,43 @@ if (sortedTutorials.length > 0)
           <h2 class="cpynq c670g c8dzi cec5b">Latest Articles</h2>
 
           <!-- Tabs -->
-          <Tabs tabs={tabs} activeTab="coding" />
+          <Tabs tabs={tabs} activeTab="all" />
 
-          <!-- Tab content -->
-          <!-- Coding tab content -->
-          <div class="tab-content" data-tab="coding">
-            <ArticlesList articles={sortedArticles} />
+          <!-- All articles tab -->
+          <div class="tab-content" data-tab="all">
+            <ArticlesList articles={sortedArticles} showCategory={true} />
           </div>
+
+          <!-- Category tabs -->
+          {
+            categoryTabs.map((tab) => {
+              const categoryArticles = getArticlesByCategory(
+                sortedArticles,
+                tab.id
+              )
+              return (
+                <div class="tab-content hidden" data-tab={tab.id}>
+                  <ArticlesList
+                    articles={categoryArticles}
+                    showCategory={false}
+                  />
+                </div>
+              )
+            })
+          }
 
           <!-- Tutorials tab content -->
-          <div class="tab-content hidden" data-tab="tutorials">
-            <Tutorials tutorials={sortedTutorials} />
-          </div>
+          {
+            sortedTutorials.length > 0 && (
+              <div class="tab-content hidden" data-tab="tutorials">
+                <Tutorials tutorials={sortedTutorials} />
+              </div>
+            )
+          }
         </section>
 
-        <!-- Popular Talks -->
-        <div class="tab-content" data-tab="coding">
-          <Tutorials tutorials={sortedTutorials} isFeatured={true} />
-        </div>
-
-        <div class="tab-content" data-tab="coding">
-          <!-- Featured Projects -->
-          <FeaturedProjects />
-        </div>
+        <Tutorials tutorials={sortedTutorials} isFeatured={true} />
+        <FeaturedProjects />
       </div>
     </div>
   </div>

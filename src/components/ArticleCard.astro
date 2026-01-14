@@ -1,13 +1,27 @@
 ---
+import { getCategoryLabel } from "../data/articleCategories"
+
 interface Props {
   title: string
   date: string
   image: string
   excerpt: string
   slug: string
+  category?: string
+  tags?: string[]
+  showCategory?: boolean
 }
 
-const { title, date, image, excerpt, slug } = Astro.props
+const {
+  title,
+  date,
+  image,
+  excerpt,
+  slug,
+  category,
+  tags,
+  showCategory = false,
+} = Astro.props
 ---
 
 <article class="cg3vi crdpf c8z7y c3bdg">
@@ -23,6 +37,16 @@ const { title, date, image, excerpt, slug } = Astro.props
       <div class="c2bb0 cd99g ck5r6 c0kco">
         <span class="chugl">—</span>
         {date}
+        {
+          category && showCategory && (
+            <>
+              <span class="chugl cme8e"> • </span>
+              <span class="cxslc c2bb0 cme8e" style="text-transform: none;">
+                {getCategoryLabel(category)}
+              </span>
+            </>
+          )
+        }
       </div>
       <h3 class="cpynq c670g c5rvt c0kco">
         <a

@@ -16,6 +16,23 @@
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+/* Remove all card tilting/rotation - ensure cards are fully upright */
+.cof6c,
+.cof6c:nth-child(odd),
+.cof6c:nth-child(even),
+.czh94,
+.czh94:nth-child(odd),
+.czh94:nth-child(even),
+.c1gvt,
+.c1gvt:nth-child(odd),
+.c1gvt:nth-child(even),
+.c9o2h,
+.c9o2h:nth-child(odd),
+.c9o2h:nth-child(even) {
+  --tw-rotate: 0deg !important;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(0deg) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+}
+
 /* Remove overlay effect from links in sidebar cards */
 .sidebar-card a.c2ers::before,
 .sidebar-card a.c2ers:hover::before {

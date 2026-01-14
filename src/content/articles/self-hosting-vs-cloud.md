@@ -2,9 +2,11 @@
 title: "Self-Hosting vs Cloud: Tradeoffs for Indie Developers"
 coverImage: "/images/data-center-server-room.png"
 excerpt: "Deep dive into infrastructure decisions, cost control, DevOps effort, and when to use platforms like Fly.io, Render, or bare-metal servers."
-publishedAt: 2025-02-25T00:00:00.000Z
+publishedAt: 2025-10-25T00:00:00.000Z
 readTime: 8
 featured: true
+category: system-design
+tags: ["Infrastructure", "DevOps", "Cloud", "Self-Hosting", "Cost Optimization"]
 ---
 
 ![Header Image: Self-Hosted Server Rack vs Cloud Provider Logos](/images/data-center-server-room.png)

@@ -1,23 +1,29 @@
 ---
-import ResumeItem from "../components/ResumeItem.astro"
-import { resume as resumeData } from "../data/resume"
+import ResumeItem from "../components/ExperienceItem.astro"
+import { experience as experienceData } from "../data/experience"
 import Layout from "../layouts/Layout.astro"
 ---
 
-<Layout title="Resume - Education - Work Experience">
+<Layout title="Experience - Education - Work Experience">
   <div class="c4a0m">
     <div class="c8b8k">
       <section>
         <!-- Page title -->
-        <h1 class="cpynq c1rrq ciz93">My resume</h1>
+        <h1 class="cpynq c1rrq ciz93">Experience</h1>
         <!-- Page content -->
         <div class="cxslc c2bb0 cjrdl">
+          <p class="c5rvt cr8w3">
+            Over the years, I've worked across system architecture, data
+            engineering, and full-stack development. This experience has shaped
+            my approach to solving complex technical challenges and building
+            scalable solutions for clients.
+          </p>
           <!-- Education -->
           <div class="cr8w3">
             <h2 class="cxmc9 cg0ht cpynq cjvvo">Education</h2>
             <ul class="cr8w3">
               {
-                resumeData.education.map((item) => (
+                experienceData.education.map((item) => (
                   <ResumeItem
                     period={item.period}
                     title={item.degree}
@@ -35,7 +41,7 @@ import Layout from "../layouts/Layout.astro"
             <h2 class="cxmc9 cg0ht cpynq cjvvo">Work Experience</h2>
             <ul class="cr8w3">
               {
-                resumeData.experience.map((item) => (
+                experienceData.workExperience.map((item) => (
                   <ResumeItem
                     period={item.period}
                     title={item.title}
