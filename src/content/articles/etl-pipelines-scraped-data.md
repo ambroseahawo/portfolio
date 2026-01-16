@@ -54,53 +54,52 @@ The extraction stage is where data quality starts. Inconsistent parsing leads to
 
 Instead of ad-hoc parsing, use structured extractors with error handling:
 
-```python
-from dataclasses import dataclass
-from typing import Optional
-from bs4 import BeautifulSoup
+<pre class="cgr7g c2bb0 ca9r6 cx6ng c9xwx cme8e cmy5q"><code class="c4j9y"><span class="cd909">from</span> <span class="ct35c">dataclasses</span> <span class="cd909">import</span> <span class="ct35c">dataclass</span>
+<span class="cd909">from</span> <span class="ct35c">typing</span> <span class="cd909">import</span> <span class="ct35c">Optional</span>
+<span class="cd909">from</span> <span class="ct35c">bs4</span> <span class="cd909">import</span> <span class="ct35c">BeautifulSoup</span>
 
-@dataclass
-class ProductData:
-    title: str
-    price: float
-    description: Optional[str]
-    category: str
-    url: str
+<span class="cd909">@dataclass</span>
+<span class="cd909">class</span> <span class="ct35c">ProductData</span>:
+    <span class="ct35c">title</span>: <span class="ct35c">str</span>
+    <span class="ct35c">price</span>: <span class="ct35c">float</span>
+    <span class="ct35c">description</span>: <span class="ct35c">Optional</span>[<span class="ct35c">str</span>]
+    <span class="ct35c">category</span>: <span class="ct35c">str</span>
+    <span class="ct35c">url</span>: <span class="ct35c">str</span>
 
-class ProductExtractor:
-    def extract(self, html: str, url: str) -> Optional[ProductData]:
-        try:
-            soup = BeautifulSoup(html, 'html.parser')
+<span class="cd909">class</span> <span class="ct35c">ProductExtractor</span>:
+    <span class="cd909">def</span> <span class="ct35c">extract</span>(<span class="cd909">self</span>, <span class="ct35c">html</span>: <span class="ct35c">str</span>, <span class="ct35c">url</span>: <span class="ct35c">str</span>) <span class="cb1xz">-&gt;</span> <span class="ct35c">Optional</span>[<span class="ct35c">ProductData</span>]:
+        <span class="cd909">try</span>:
+            <span class="ct35c">soup</span> <span class="cb1xz">=</span> <span class="ct35c">BeautifulSoup</span>(<span class="ct35c">html</span>, <span class="cuwxp">'html.parser'</span>)
             
-            # Extract with fallbacks
-            title = self._safe_extract(soup, ['h1.product-title', '.title', 'h1'])
-            price = self._extract_price(soup)
-            description = self._safe_extract(soup, ['.description', '.product-desc'])
-            category = self._extract_category(soup, url)
+            <span class="cd909"># Extract with fallbacks</span>
+            <span class="ct35c">title</span> <span class="cb1xz">=</span> <span class="cd909">self</span>.<span class="ct35c">_safe_extract</span>(<span class="ct35c">soup</span>, [<span class="cuwxp">'h1.product-title'</span>, <span class="cuwxp">'.title'</span>, <span class="cuwxp">'h1'</span>])
+            <span class="ct35c">price</span> <span class="cb1xz">=</span> <span class="cd909">self</span>.<span class="ct35c">_extract_price</span>(<span class="ct35c">soup</span>)
+            <span class="ct35c">description</span> <span class="cb1xz">=</span> <span class="cd909">self</span>.<span class="ct35c">_safe_extract</span>(<span class="ct35c">soup</span>, [<span class="cuwxp">'.description'</span>, <span class="cuwxp">'.product-desc'</span>])
+            <span class="ct35c">category</span> <span class="cb1xz">=</span> <span class="cd909">self</span>.<span class="ct35c">_extract_category</span>(<span class="ct35c">soup</span>, <span class="ct35c">url</span>)
             
-            # Validate required fields
-            if not title or not price:
-                return None
+            <span class="cd909"># Validate required fields</span>
+            <span class="cd909">if</span> <span class="cd909">not</span> <span class="ct35c">title</span> <span class="cd909">or</span> <span class="cd909">not</span> <span class="ct35c">price</span>:
+                <span class="cd909">return</span> <span class="cd909">None</span>
                 
-            return ProductData(
-                title=title.strip(),
-                price=price,
-                description=description.strip() if description else None,
-                category=category,
-                url=url
+            <span class="cd909">return</span> <span class="ct35c">ProductData</span>(
+                <span class="ct35c">title</span><span class="cb1xz">=</span><span class="ct35c">title</span>.<span class="ct35c">strip</span>(),
+                <span class="ct35c">price</span><span class="cb1xz">=</span><span class="ct35c">price</span>,
+                <span class="ct35c">description</span><span class="cb1xz">=</span><span class="ct35c">description</span>.<span class="ct35c">strip</span>() <span class="cd909">if</span> <span class="ct35c">description</span> <span class="cd909">else</span> <span class="cd909">None</span>,
+                <span class="ct35c">category</span><span class="cb1xz">=</span><span class="ct35c">category</span>,
+                <span class="ct35c">url</span><span class="cb1xz">=</span><span class="ct35c">url</span>
             )
-        except Exception as e:
-            # Log and return None - don't break the pipeline
-            logger.error(f"Extraction failed for {url}: {e}")
-            return None
+        <span class="cd909">except</span> <span class="ct35c">Exception</span> <span class="cd909">as</span> <span class="ct35c">e</span>:
+            <span class="cd909"># Log and return None - don't break the pipeline</span>
+            <span class="ct35c">logger</span>.<span class="ct35c">error</span>(<span class="cuwxp">f"Extraction failed for {url}: {e}"</span>)
+            <span class="cd909">return</span> <span class="cd909">None</span>
     
-    def _safe_extract(self, soup, selectors):
-        for selector in selectors:
-            element = soup.select_one(selector)
-            if element:
-                return element.get_text()
-        return None
-```
+    <span class="cd909">def</span> <span class="ct35c">_safe_extract</span>(<span class="cd909">self</span>, <span class="ct35c">soup</span>, <span class="ct35c">selectors</span>):
+        <span class="cd909">for</span> <span class="ct35c">selector</span> <span class="cd909">in</span> <span class="ct35c">selectors</span>:
+            <span class="ct35c">element</span> <span class="cb1xz">=</span> <span class="ct35c">soup</span>.<span class="ct35c">select_one</span>(<span class="ct35c">selector</span>)
+            <span class="cd909">if</span> <span class="ct35c">element</span>:
+                <span class="cd909">return</span> <span class="ct35c">element</span>.<span class="ct35c">get_text</span>()
+        <span class="cd909">return</span> <span class="cd909">None</span>
+</code></pre>
 
 **Key principles:**
 - Always have fallback selectors
@@ -116,35 +115,34 @@ Raw extracted data is messy. Normalize it before validation.
 
 ### Pattern: Transformation Pipeline
 
-```python
-class DataTransformer:
-    def transform(self, data: ProductData) -> ProductData:
-        return ProductData(
-            title=self._normalize_title(data.title),
-            price=self._normalize_price(data.price),
-            description=self._normalize_description(data.description),
-            category=self._normalize_category(data.category),
-            url=self._normalize_url(data.url)
+<pre class="cgr7g c2bb0 ca9r6 cx6ng c9xwx cme8e cmy5q"><code class="c4j9y"><span class="cd909">class</span> <span class="ct35c">DataTransformer</span>:
+    <span class="cd909">def</span> <span class="ct35c">transform</span>(<span class="cd909">self</span>, <span class="ct35c">data</span>: <span class="ct35c">ProductData</span>) <span class="cb1xz">-&gt;</span> <span class="ct35c">ProductData</span>:
+        <span class="cd909">return</span> <span class="ct35c">ProductData</span>(
+            <span class="ct35c">title</span><span class="cb1xz">=</span><span class="cd909">self</span>.<span class="ct35c">_normalize_title</span>(<span class="ct35c">data</span>.<span class="ct35c">title</span>),
+            <span class="ct35c">price</span><span class="cb1xz">=</span><span class="cd909">self</span>.<span class="ct35c">_normalize_price</span>(<span class="ct35c">data</span>.<span class="ct35c">price</span>),
+            <span class="ct35c">description</span><span class="cb1xz">=</span><span class="cd909">self</span>.<span class="ct35c">_normalize_description</span>(<span class="ct35c">data</span>.<span class="ct35c">description</span>),
+            <span class="ct35c">category</span><span class="cb1xz">=</span><span class="cd909">self</span>.<span class="ct35c">_normalize_category</span>(<span class="ct35c">data</span>.<span class="ct35c">category</span>),
+            <span class="ct35c">url</span><span class="cb1xz">=</span><span class="cd909">self</span>.<span class="ct35c">_normalize_url</span>(<span class="ct35c">data</span>.<span class="ct35c">url</span>)
         )
     
-    def _normalize_title(self, title: str) -> str:
-        # Remove extra whitespace, normalize unicode
-        return ' '.join(title.split())
+    <span class="cd909">def</span> <span class="ct35c">_normalize_title</span>(<span class="cd909">self</span>, <span class="ct35c">title</span>: <span class="ct35c">str</span>) <span class="cb1xz">-&gt;</span> <span class="ct35c">str</span>:
+        <span class="cd909"># Remove extra whitespace, normalize unicode</span>
+        <span class="cd909">return</span> <span class="cuwxp">' '</span>.<span class="ct35c">join</span>(<span class="ct35c">title</span>.<span class="ct35c">split</span>())
     
-    def _normalize_price(self, price: str) -> float:
-        # Handle "$99.99", "99,99", "99.99 USD"
-        price_str = re.sub(r'[^\d.]', '', str(price).replace(',', ''))
-        return float(price_str)
+    <span class="cd909">def</span> <span class="ct35c">_normalize_price</span>(<span class="cd909">self</span>, <span class="ct35c">price</span>: <span class="ct35c">str</span>) <span class="cb1xz">-&gt;</span> <span class="ct35c">float</span>:
+        <span class="cd909"># Handle "$99.99", "99,99", "99.99 USD"</span>
+        <span class="ct35c">price_str</span> <span class="cb1xz">=</span> <span class="ct35c">re</span>.<span class="ct35c">sub</span>(<span class="cuwxp">r'[^\d.]'</span>, <span class="cuwxp">''</span>, <span class="ct35c">str</span>(<span class="ct35c">price</span>).<span class="ct35c">replace</span>(<span class="cuwxp">','</span>, <span class="cuwxp">''</span>))
+        <span class="cd909">return</span> <span class="ct35c">float</span>(<span class="ct35c">price_str</span>)
     
-    def _normalize_category(self, category: str) -> str:
-        # Standardize category names
-        category_map = {
-            'electronics': 'Electronics',
-            'ELECTRONICS': 'Electronics',
-            'tech': 'Electronics'
+    <span class="cd909">def</span> <span class="ct35c">_normalize_category</span>(<span class="cd909">self</span>, <span class="ct35c">category</span>: <span class="ct35c">str</span>) <span class="cb1xz">-&gt;</span> <span class="ct35c">str</span>:
+        <span class="cd909"># Standardize category names</span>
+        <span class="ct35c">category_map</span> <span class="cb1xz">=</span> {
+            <span class="cuwxp">'electronics'</span>: <span class="cuwxp">'Electronics'</span>,
+            <span class="cuwxp">'ELECTRONICS'</span>: <span class="cuwxp">'Electronics'</span>,
+            <span class="cuwxp">'tech'</span>: <span class="cuwxp">'Electronics'</span>
         }
-        return category_map.get(category.lower(), category.title())
-```
+        <span class="cd909">return</span> <span class="ct35c">category_map</span>.<span class="ct35c">get</span>(<span class="ct35c">category</span>.<span class="ct35c">lower</span>(), <span class="ct35c">category</span>.<span class="ct35c">title</span>())
+</code></pre>
 
 **What we've learned:**
 - Normalize early, validate after
@@ -160,35 +158,34 @@ This is where most pipelines fail. Validate before loading.
 
 ### Pattern: Schema Validation with Pydantic
 
-```python
-from pydantic import BaseModel, validator, Field
-from typing import Optional
-from datetime import datetime
+<pre class="cgr7g c2bb0 ca9r6 cx6ng c9xwx cme8e cmy5q"><code class="c4j9y"><span class="cd909">from</span> <span class="ct35c">pydantic</span> <span class="cd909">import</span> <span class="ct35c">BaseModel</span>, <span class="ct35c">validator</span>, <span class="ct35c">Field</span>
+<span class="cd909">from</span> <span class="ct35c">typing</span> <span class="cd909">import</span> <span class="ct35c">Optional</span>
+<span class="cd909">from</span> <span class="ct35c">datetime</span> <span class="cd909">import</span> <span class="ct35c">datetime</span>
 
-class ValidatedProduct(BaseModel):
-    title: str = Field(..., min_length=3, max_length=200)
-    price: float = Field(..., gt=0, le=1000000)
-    description: Optional[str] = Field(None, max_length=5000)
-    category: str = Field(..., regex='^(Electronics|Clothing|Home|Books)$')
-    url: str = Field(..., regex='^https?://')
-    scraped_at: datetime
-    source: str
+<span class="cd909">class</span> <span class="ct35c">ValidatedProduct</span>(<span class="ct35c">BaseModel</span>):
+    <span class="ct35c">title</span>: <span class="ct35c">str</span> <span class="cb1xz">=</span> <span class="ct35c">Field</span>(<span class="cuwxp">...</span>, <span class="ct35c">min_length</span><span class="cb1xz">=</span><span class="cuwxp">3</span>, <span class="ct35c">max_length</span><span class="cb1xz">=</span><span class="cuwxp">200</span>)
+    <span class="ct35c">price</span>: <span class="ct35c">float</span> <span class="cb1xz">=</span> <span class="ct35c">Field</span>(<span class="cuwxp">...</span>, <span class="ct35c">gt</span><span class="cb1xz">=</span><span class="cuwxp">0</span>, <span class="ct35c">le</span><span class="cb1xz">=</span><span class="cuwxp">1000000</span>)
+    <span class="ct35c">description</span>: <span class="ct35c">Optional</span>[<span class="ct35c">str</span>] <span class="cb1xz">=</span> <span class="ct35c">Field</span>(<span class="cd909">None</span>, <span class="ct35c">max_length</span><span class="cb1xz">=</span><span class="cuwxp">5000</span>)
+    <span class="ct35c">category</span>: <span class="ct35c">str</span> <span class="cb1xz">=</span> <span class="ct35c">Field</span>(<span class="cuwxp">...</span>, <span class="ct35c">regex</span><span class="cb1xz">=</span><span class="cuwxp">'^(Electronics|Clothing|Home|Books)$'</span>)
+    <span class="ct35c">url</span>: <span class="ct35c">str</span> <span class="cb1xz">=</span> <span class="ct35c">Field</span>(<span class="cuwxp">...</span>, <span class="ct35c">regex</span><span class="cb1xz">=</span><span class="cuwxp">'^https?://'</span>)
+    <span class="ct35c">scraped_at</span>: <span class="ct35c">datetime</span>
+    <span class="ct35c">source</span>: <span class="ct35c">str</span>
     
-    @validator('price')
-    def validate_price(cls, v):
-        if v <= 0:
-            raise ValueError('Price must be positive')
-        return round(v, 2)
+    <span class="cd909">@validator</span>(<span class="cuwxp">'price'</span>)
+    <span class="cd909">def</span> <span class="ct35c">validate_price</span>(<span class="ct35c">cls</span>, <span class="ct35c">v</span>):
+        <span class="cd909">if</span> <span class="ct35c">v</span> <span class="cb1xz">&lt;=</span> <span class="cuwxp">0</span>:
+            <span class="cd909">raise</span> <span class="ct35c">ValueError</span>(<span class="cuwxp">'Price must be positive'</span>)
+        <span class="cd909">return</span> <span class="ct35c">round</span>(<span class="ct35c">v</span>, <span class="cuwxp">2</span>)
     
-    @validator('title')
-    def validate_title(cls, v):
-        if len(v.strip()) < 3:
-            raise ValueError('Title too short')
-        return v.strip()
+    <span class="cd909">@validator</span>(<span class="cuwxp">'title'</span>)
+    <span class="cd909">def</span> <span class="ct35c">validate_title</span>(<span class="ct35c">cls</span>, <span class="ct35c">v</span>):
+        <span class="cd909">if</span> <span class="ct35c">len</span>(<span class="ct35c">v</span>.<span class="ct35c">strip</span>()) <span class="cb1xz">&lt;</span> <span class="cuwxp">3</span>:
+            <span class="cd909">raise</span> <span class="ct35c">ValueError</span>(<span class="cuwxp">'Title too short'</span>)
+        <span class="cd909">return</span> <span class="ct35c">v</span>.<span class="ct35c">strip</span>()
     
-    class Config:
-        extra = 'forbid'  # Reject unknown fields
-```
+    <span class="cd909">class</span> <span class="ct35c">Config</span>:
+        <span class="ct35c">extra</span> <span class="cb1xz">=</span> <span class="cuwxp">'forbid'</span>  <span class="cd909"># Reject unknown fields</span>
+</code></pre>
 
 **Why this matters:**
 - Catches invalid data before it reaches the database
@@ -198,23 +195,22 @@ class ValidatedProduct(BaseModel):
 
 ### Handling Validation Errors
 
-```python
-def validate_batch(products: List[ProductData]) -> Tuple[List[ValidatedProduct], List[dict]]:
-    validated = []
-    errors = []
+<pre class="cgr7g c2bb0 ca9r6 cx6ng c9xwx cme8e cmy5q"><code class="c4j9y"><span class="cd909">def</span> <span class="ct35c">validate_batch</span>(<span class="ct35c">products</span>: <span class="ct35c">List</span>[<span class="ct35c">ProductData</span>]) <span class="cb1xz">-&gt;</span> <span class="ct35c">Tuple</span>[<span class="ct35c">List</span>[<span class="ct35c">ValidatedProduct</span>], <span class="ct35c">List</span>[<span class="ct35c">dict</span>]]:
+    <span class="ct35c">validated</span> <span class="cb1xz">=</span> []
+    <span class="ct35c">errors</span> <span class="cb1xz">=</span> []
     
-    for product in products:
-        try:
-            validated.append(ValidatedProduct(**product.__dict__))
-        except ValidationError as e:
-            errors.append({
-                'data': product.__dict__,
-                'errors': e.errors(),
-                'timestamp': datetime.now()
+    <span class="cd909">for</span> <span class="ct35c">product</span> <span class="cd909">in</span> <span class="ct35c">products</span>:
+        <span class="cd909">try</span>:
+            <span class="ct35c">validated</span>.<span class="ct35c">append</span>(<span class="ct35c">ValidatedProduct</span>(<span class="cuwxp">**</span><span class="ct35c">product</span>.<span class="ct35c">__dict__</span>))
+        <span class="cd909">except</span> <span class="ct35c">ValidationError</span> <span class="cd909">as</span> <span class="ct35c">e</span>:
+            <span class="ct35c">errors</span>.<span class="ct35c">append</span>({
+                <span class="cuwxp">'data'</span>: <span class="ct35c">product</span>.<span class="ct35c">__dict__</span>,
+                <span class="cuwxp">'errors'</span>: <span class="ct35c">e</span>.<span class="ct35c">errors</span>(),
+                <span class="cuwxp">'timestamp'</span>: <span class="ct35c">datetime</span>.<span class="ct35c">now</span>()
             })
     
-    return validated, errors
-```
+    <span class="cd909">return</span> <span class="ct35c">validated</span>, <span class="ct35c">errors</span>
+</code></pre>
 
 **Error handling strategy:**
 - Collect all errors, don't fail on first invalid record
@@ -230,48 +226,46 @@ Duplicate data inflates storage and breaks analytics. Deduplicate before loading
 
 ### Pattern: Content-Based Deduplication
 
-```python
-import hashlib
-from typing import Set
+<pre class="cgr7g c2bb0 ca9r6 cx6ng c9xwx cme8e cmy5q"><code class="c4j9y"><span class="cd909">import</span> <span class="ct35c">hashlib</span>
+<span class="cd909">from</span> <span class="ct35c">typing</span> <span class="cd909">import</span> <span class="ct35c">Set</span>
 
-class Deduplicator:
-    def __init__(self):
-        self.seen_hashes: Set[str] = set()
+<span class="cd909">class</span> <span class="ct35c">Deduplicator</span>:
+    <span class="cd909">def</span> <span class="ct35c">__init__</span>(<span class="cd909">self</span>):
+        <span class="cd909">self</span>.<span class="ct35c">seen_hashes</span>: <span class="ct35c">Set</span>[<span class="ct35c">str</span>] <span class="cb1xz">=</span> <span class="ct35c">set</span>()
     
-    def is_duplicate(self, product: ValidatedProduct) -> bool:
-        # Create hash from unique fields
-        unique_fields = f"{product.url}|{product.title}|{product.price}"
-        content_hash = hashlib.md5(unique_fields.encode()).hexdigest()
+    <span class="cd909">def</span> <span class="ct35c">is_duplicate</span>(<span class="cd909">self</span>, <span class="ct35c">product</span>: <span class="ct35c">ValidatedProduct</span>) <span class="cb1xz">-&gt;</span> <span class="ct35c">bool</span>:
+        <span class="cd909"># Create hash from unique fields</span>
+        <span class="ct35c">unique_fields</span> <span class="cb1xz">=</span> <span class="cuwxp">f"{product.url}|{product.title}|{product.price}"</span>
+        <span class="ct35c">content_hash</span> <span class="cb1xz">=</span> <span class="ct35c">hashlib</span>.<span class="ct35c">md5</span>(<span class="ct35c">unique_fields</span>.<span class="ct35c">encode</span>()).<span class="ct35c">hexdigest</span>()
         
-        if content_hash in self.seen_hashes:
-            return True
+        <span class="cd909">if</span> <span class="ct35c">content_hash</span> <span class="cd909">in</span> <span class="cd909">self</span>.<span class="ct35c">seen_hashes</span>:
+            <span class="cd909">return</span> <span class="cd909">True</span>
         
-        self.seen_hashes.add(content_hash)
-        return False
-```
+        <span class="cd909">self</span>.<span class="ct35c">seen_hashes</span>.<span class="ct35c">add</span>(<span class="ct35c">content_hash</span>)
+        <span class="cd909">return</span> <span class="cd909">False</span>
+</code></pre>
 
 **For production scale**, use Redis or database-backed deduplication:
 
-```python
-import redis
+<pre class="cgr7g c2bb0 ca9r6 cx6ng c9xwx cme8e cmy5q"><code class="c4j9y"><span class="cd909">import</span> <span class="ct35c">redis</span>
 
-class RedisDeduplicator:
-    def __init__(self, redis_client: redis.Redis):
-        self.redis = redis_client
-        self.ttl = 86400 * 30  # 30 days
+<span class="cd909">class</span> <span class="ct35c">RedisDeduplicator</span>:
+    <span class="cd909">def</span> <span class="ct35c">__init__</span>(<span class="cd909">self</span>, <span class="ct35c">redis_client</span>: <span class="ct35c">redis</span>.<span class="ct35c">Redis</span>):
+        <span class="cd909">self</span>.<span class="ct35c">redis</span> <span class="cb1xz">=</span> <span class="ct35c">redis_client</span>
+        <span class="cd909">self</span>.<span class="ct35c">ttl</span> <span class="cb1xz">=</span> <span class="cuwxp">86400</span> <span class="cb1xz">*</span> <span class="cuwxp">30</span>  <span class="cd909"># 30 days</span>
     
-    def is_duplicate(self, product: ValidatedProduct) -> bool:
-        unique_fields = f"{product.url}|{product.title}|{product.price}"
-        content_hash = hashlib.md5(unique_fields.encode()).hexdigest()
+    <span class="cd909">def</span> <span class="ct35c">is_duplicate</span>(<span class="cd909">self</span>, <span class="ct35c">product</span>: <span class="ct35c">ValidatedProduct</span>) <span class="cb1xz">-&gt;</span> <span class="ct35c">bool</span>:
+        <span class="ct35c">unique_fields</span> <span class="cb1xz">=</span> <span class="cuwxp">f"{product.url}|{product.title}|{product.price}"</span>
+        <span class="ct35c">content_hash</span> <span class="cb1xz">=</span> <span class="ct35c">hashlib</span>.<span class="ct35c">md5</span>(<span class="ct35c">unique_fields</span>.<span class="ct35c">encode</span>()).<span class="ct35c">hexdigest</span>()
         
-        key = f"dedup:product:{content_hash}"
+        <span class="ct35c">key</span> <span class="cb1xz">=</span> <span class="cuwxp">f"dedup:product:{content_hash}"</span>
         
-        if self.redis.exists(key):
-            return True
+        <span class="cd909">if</span> <span class="cd909">self</span>.<span class="ct35c">redis</span>.<span class="ct35c">exists</span>(<span class="ct35c">key</span>):
+            <span class="cd909">return</span> <span class="cd909">True</span>
         
-        self.redis.setex(key, self.ttl, "1")
-        return False
-```
+        <span class="cd909">self</span>.<span class="ct35c">redis</span>.<span class="ct35c">setex</span>(<span class="ct35c">key</span>, <span class="cd909">self</span>.<span class="ct35c">ttl</span>, <span class="cuwxp">"1"</span>)
+        <span class="cd909">return</span> <span class="cd909">False</span>
+</code></pre>
 
 **Deduplication strategies:**
 - **URL-based**: Fast but misses content changes
@@ -286,42 +280,41 @@ How you load data determines query performance. Optimize for time-series scraped
 
 ### Schema Design for Scraped Data
 
-```sql
--- Partitioned table for time-series data
-CREATE TABLE scraped_products (
-    id BIGSERIAL,
-    title VARCHAR(200) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    description TEXT,
-    category VARCHAR(50) NOT NULL,
-    url VARCHAR(500) NOT NULL,
-    source VARCHAR(100) NOT NULL,
-    scraped_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    content_hash VARCHAR(32) NOT NULL,
+<pre class="cgr7g c2bb0 ca9r6 cx6ng c9xwx cme8e cmy5q"><code class="c4j9y"><span class="cd909">-- Partitioned table for time-series data</span>
+<span class="cd909">CREATE TABLE</span> <span class="ct35c">scraped_products</span> (
+    <span class="ct35c">id</span> <span class="ct35c">BIGSERIAL</span>,
+    <span class="ct35c">title</span> <span class="ct35c">VARCHAR</span>(<span class="cuwxp">200</span>) <span class="cd909">NOT NULL</span>,
+    <span class="ct35c">price</span> <span class="ct35c">DECIMAL</span>(<span class="cuwxp">10</span>, <span class="cuwxp">2</span>) <span class="cd909">NOT NULL</span>,
+    <span class="ct35c">description</span> <span class="ct35c">TEXT</span>,
+    <span class="ct35c">category</span> <span class="ct35c">VARCHAR</span>(<span class="cuwxp">50</span>) <span class="cd909">NOT NULL</span>,
+    <span class="ct35c">url</span> <span class="ct35c">VARCHAR</span>(<span class="cuwxp">500</span>) <span class="cd909">NOT NULL</span>,
+    <span class="ct35c">source</span> <span class="ct35c">VARCHAR</span>(<span class="cuwxp">100</span>) <span class="cd909">NOT NULL</span>,
+    <span class="ct35c">scraped_at</span> <span class="ct35c">TIMESTAMP</span> <span class="cd909">NOT NULL DEFAULT NOW</span>(),
+    <span class="ct35c">created_at</span> <span class="ct35c">TIMESTAMP</span> <span class="cd909">NOT NULL DEFAULT NOW</span>(),
+    <span class="ct35c">content_hash</span> <span class="ct35c">VARCHAR</span>(<span class="cuwxp">32</span>) <span class="cd909">NOT NULL</span>,
     
-    PRIMARY KEY (id, scraped_at)
-) PARTITION BY RANGE (scraped_at);
+    <span class="cd909">PRIMARY KEY</span> (<span class="ct35c">id</span>, <span class="ct35c">scraped_at</span>)
+) <span class="cd909">PARTITION BY RANGE</span> (<span class="ct35c">scraped_at</span>);
 
--- Monthly partitions
-CREATE TABLE scraped_products_2025_01 
-    PARTITION OF scraped_products
-    FOR VALUES FROM ('2025-01-01') TO ('2025-02-01');
+<span class="cd909">-- Monthly partitions</span>
+<span class="cd909">CREATE TABLE</span> <span class="ct35c">scraped_products_2025_01</span> 
+    <span class="cd909">PARTITION OF</span> <span class="ct35c">scraped_products</span>
+    <span class="cd909">FOR VALUES FROM</span> (<span class="cuwxp">'2025-01-01'</span>) <span class="cd909">TO</span> (<span class="cuwxp">'2025-02-01'</span>);
 
-CREATE TABLE scraped_products_2025_02 
-    PARTITION OF scraped_products
-    FOR VALUES FROM ('2025-02-01') TO ('2025-03-01');
+<span class="cd909">CREATE TABLE</span> <span class="ct35c">scraped_products_2025_02</span> 
+    <span class="cd909">PARTITION OF</span> <span class="ct35c">scraped_products</span>
+    <span class="cd909">FOR VALUES FROM</span> (<span class="cuwxp">'2025-02-01'</span>) <span class="cd909">TO</span> (<span class="cuwxp">'2025-03-01'</span>);
 
--- Indexes for common queries
-CREATE INDEX idx_scraped_products_category ON scraped_products(category);
-CREATE INDEX idx_scraped_products_scraped_at ON scraped_products(scraped_at);
-CREATE INDEX idx_scraped_products_content_hash ON scraped_products(content_hash);
-CREATE INDEX idx_scraped_products_url ON scraped_products(url);
+<span class="cd909">-- Indexes for common queries</span>
+<span class="cd909">CREATE INDEX</span> <span class="ct35c">idx_scraped_products_category</span> <span class="cd909">ON</span> <span class="ct35c">scraped_products</span>(<span class="ct35c">category</span>);
+<span class="cd909">CREATE INDEX</span> <span class="ct35c">idx_scraped_products_scraped_at</span> <span class="cd909">ON</span> <span class="ct35c">scraped_products</span>(<span class="ct35c">scraped_at</span>);
+<span class="cd909">CREATE INDEX</span> <span class="ct35c">idx_scraped_products_content_hash</span> <span class="cd909">ON</span> <span class="ct35c">scraped_products</span>(<span class="ct35c">content_hash</span>);
+<span class="cd909">CREATE INDEX</span> <span class="ct35c">idx_scraped_products_url</span> <span class="cd909">ON</span> <span class="ct35c">scraped_products</span>(<span class="ct35c">url</span>);
 
--- Composite index for category + date queries
-CREATE INDEX idx_scraped_products_category_date 
-    ON scraped_products(category, scraped_at DESC);
-```
+<span class="cd909">-- Composite index for category + date queries</span>
+<span class="cd909">CREATE INDEX</span> <span class="ct35c">idx_scraped_products_category_date</span> 
+    <span class="cd909">ON</span> <span class="ct35c">scraped_products</span>(<span class="ct35c">category</span>, <span class="ct35c">scraped_at</span> <span class="cd909">DESC</span>);
+</code></pre>
 
 **Why this design works:**
 - **Partitioning**: Queries only scan relevant time ranges
@@ -331,35 +324,34 @@ CREATE INDEX idx_scraped_products_category_date
 
 ### Bulk Loading Pattern
 
-```python
-from psycopg2.extras import execute_batch
+<pre class="cgr7g c2bb0 ca9r6 cx6ng c9xwx cme8e cmy5q"><code class="c4j9y"><span class="cd909">from</span> <span class="ct35c">psycopg2.extras</span> <span class="cd909">import</span> <span class="ct35c">execute_batch</span>
 
-def load_batch(products: List[ValidatedProduct], cursor):
-    # Prepare data for bulk insert
-    records = [
+<span class="cd909">def</span> <span class="ct35c">load_batch</span>(<span class="ct35c">products</span>: <span class="ct35c">List</span>[<span class="ct35c">ValidatedProduct</span>], <span class="ct35c">cursor</span>):
+    <span class="cd909"># Prepare data for bulk insert</span>
+    <span class="ct35c">records</span> <span class="cb1xz">=</span> [
         (
-            p.title,
-            p.price,
-            p.description,
-            p.category,
-            p.url,
-            p.source,
-            p.scraped_at,
-            hashlib.md5(f"{p.url}|{p.title}|{p.price}".encode()).hexdigest()
+            <span class="ct35c">p</span>.<span class="ct35c">title</span>,
+            <span class="ct35c">p</span>.<span class="ct35c">price</span>,
+            <span class="ct35c">p</span>.<span class="ct35c">description</span>,
+            <span class="ct35c">p</span>.<span class="ct35c">category</span>,
+            <span class="ct35c">p</span>.<span class="ct35c">url</span>,
+            <span class="ct35c">p</span>.<span class="ct35c">source</span>,
+            <span class="ct35c">p</span>.<span class="ct35c">scraped_at</span>,
+            <span class="ct35c">hashlib</span>.<span class="ct35c">md5</span>(<span class="cuwxp">f"{p.url}|{p.title}|{p.price}"</span>.<span class="ct35c">encode</span>()).<span class="ct35c">hexdigest</span>()
         )
-        for p in products
+        <span class="cd909">for</span> <span class="ct35c">p</span> <span class="cd909">in</span> <span class="ct35c">products</span>
     ]
     
-    query = """
+    <span class="ct35c">query</span> <span class="cb1xz">=</span> <span class="cuwxp">"""
         INSERT INTO scraped_products 
         (title, price, description, category, url, source, scraped_at, content_hash)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         ON CONFLICT DO NOTHING
-    """
+    """</span>
     
-    # Batch insert for performance
-    execute_batch(cursor, query, records, page_size=1000)
-```
+    <span class="cd909"># Batch insert for performance</span>
+    <span class="ct35c">execute_batch</span>(<span class="ct35c">cursor</span>, <span class="ct35c">query</span>, <span class="ct35c">records</span>, <span class="ct35c">page_size</span><span class="cb1xz">=</span><span class="cuwxp">1000</span>)
+</code></pre>
 
 **Performance tips:**
 - Use `execute_batch` for bulk inserts (10x faster than individual inserts)
@@ -373,57 +365,56 @@ def load_batch(products: List[ValidatedProduct], cursor):
 
 Here's the full pipeline that processes hundreds of thousands of records daily:
 
-```python
-class ETLPipeline:
-    def __init__(self):
-        self.extractor = ProductExtractor()
-        self.transformer = DataTransformer()
-        self.validator = ValidatedProduct
-        self.deduplicator = RedisDeduplicator(redis_client)
-        self.db = get_db_connection()
+<pre class="cgr7g c2bb0 ca9r6 cx6ng c9xwx cme8e cmy5q"><code class="c4j9y"><span class="cd909">class</span> <span class="ct35c">ETLPipeline</span>:
+    <span class="cd909">def</span> <span class="ct35c">__init__</span>(<span class="cd909">self</span>):
+        <span class="cd909">self</span>.<span class="ct35c">extractor</span> <span class="cb1xz">=</span> <span class="ct35c">ProductExtractor</span>()
+        <span class="cd909">self</span>.<span class="ct35c">transformer</span> <span class="cb1xz">=</span> <span class="ct35c">DataTransformer</span>()
+        <span class="cd909">self</span>.<span class="ct35c">validator</span> <span class="cb1xz">=</span> <span class="ct35c">ValidatedProduct</span>
+        <span class="cd909">self</span>.<span class="ct35c">deduplicator</span> <span class="cb1xz">=</span> <span class="ct35c">RedisDeduplicator</span>(<span class="ct35c">redis_client</span>)
+        <span class="cd909">self</span>.<span class="ct35c">db</span> <span class="cb1xz">=</span> <span class="ct35c">get_db_connection</span>()
     
-    def process_batch(self, html_batch: List[tuple]) -> dict:
-        """
+    <span class="cd909">def</span> <span class="ct35c">process_batch</span>(<span class="cd909">self</span>, <span class="ct35c">html_batch</span>: <span class="ct35c">List</span>[<span class="ct35c">tuple</span>]) <span class="cb1xz">-&gt;</span> <span class="ct35c">dict</span>:
+        <span class="cuwxp">"""
         Process a batch of (html, url) tuples
         Returns: stats dict with counts
-        """
-        stats = {
-            'total': len(html_batch),
-            'extracted': 0,
-            'validated': 0,
-            'deduplicated': 0,
-            'loaded': 0,
-            'errors': []
+        """</span>
+        <span class="ct35c">stats</span> <span class="cb1xz">=</span> {
+            <span class="cuwxp">'total'</span>: <span class="ct35c">len</span>(<span class="ct35c">html_batch</span>),
+            <span class="cuwxp">'extracted'</span>: <span class="cuwxp">0</span>,
+            <span class="cuwxp">'validated'</span>: <span class="cuwxp">0</span>,
+            <span class="cuwxp">'deduplicated'</span>: <span class="cuwxp">0</span>,
+            <span class="cuwxp">'loaded'</span>: <span class="cuwxp">0</span>,
+            <span class="cuwxp">'errors'</span>: []
         }
         
-        # Extract
-        extracted = []
-        for html, url in html_batch:
-            data = self.extractor.extract(html, url)
-            if data:
-                extracted.append(data)
-                stats['extracted'] += 1
+        <span class="cd909"># Extract</span>
+        <span class="ct35c">extracted</span> <span class="cb1xz">=</span> []
+        <span class="cd909">for</span> <span class="ct35c">html</span>, <span class="ct35c">url</span> <span class="cd909">in</span> <span class="ct35c">html_batch</span>:
+            <span class="ct35c">data</span> <span class="cb1xz">=</span> <span class="cd909">self</span>.<span class="ct35c">extractor</span>.<span class="ct35c">extract</span>(<span class="ct35c">html</span>, <span class="ct35c">url</span>)
+            <span class="cd909">if</span> <span class="ct35c">data</span>:
+                <span class="ct35c">extracted</span>.<span class="ct35c">append</span>(<span class="ct35c">data</span>)
+                <span class="ct35c">stats</span>[<span class="cuwxp">'extracted'</span>] <span class="cb1xz">+=</span> <span class="cuwxp">1</span>
         
-        # Transform
-        transformed = [self.transformer.transform(d) for d in extracted]
+        <span class="cd909"># Transform</span>
+        <span class="ct35c">transformed</span> <span class="cb1xz">=</span> [<span class="cd909">self</span>.<span class="ct35c">transformer</span>.<span class="ct35c">transform</span>(<span class="ct35c">d</span>) <span class="cd909">for</span> <span class="ct35c">d</span> <span class="cd909">in</span> <span class="ct35c">extracted</span>]
         
-        # Validate
-        validated, errors = validate_batch(transformed)
-        stats['validated'] = len(validated)
-        stats['errors'].extend(errors)
+        <span class="cd909"># Validate</span>
+        <span class="ct35c">validated</span>, <span class="ct35c">errors</span> <span class="cb1xz">=</span> <span class="ct35c">validate_batch</span>(<span class="ct35c">transformed</span>)
+        <span class="ct35c">stats</span>[<span class="cuwxp">'validated'</span>] <span class="cb1xz">=</span> <span class="ct35c">len</span>(<span class="ct35c">validated</span>)
+        <span class="ct35c">stats</span>[<span class="cuwxp">'errors'</span>].<span class="ct35c">extend</span>(<span class="ct35c">errors</span>)
         
-        # Deduplicate
-        unique = [p for p in validated if not self.deduplicator.is_duplicate(p)]
-        stats['deduplicated'] = len(unique)
+        <span class="cd909"># Deduplicate</span>
+        <span class="ct35c">unique</span> <span class="cb1xz">=</span> [<span class="ct35c">p</span> <span class="cd909">for</span> <span class="ct35c">p</span> <span class="cd909">in</span> <span class="ct35c">validated</span> <span class="cd909">if</span> <span class="cd909">not</span> <span class="cd909">self</span>.<span class="ct35c">deduplicator</span>.<span class="ct35c">is_duplicate</span>(<span class="ct35c">p</span>)]
+        <span class="ct35c">stats</span>[<span class="cuwxp">'deduplicated'</span>] <span class="cb1xz">=</span> <span class="ct35c">len</span>(<span class="ct35c">unique</span>)
         
-        # Load
-        if unique:
-            load_batch(unique, self.db.cursor())
-            self.db.commit()
-            stats['loaded'] = len(unique)
+        <span class="cd909"># Load</span>
+        <span class="cd909">if</span> <span class="ct35c">unique</span>:
+            <span class="ct35c">load_batch</span>(<span class="ct35c">unique</span>, <span class="cd909">self</span>.<span class="ct35c">db</span>.<span class="ct35c">cursor</span>())
+            <span class="cd909">self</span>.<span class="ct35c">db</span>.<span class="ct35c">commit</span>()
+            <span class="ct35c">stats</span>[<span class="cuwxp">'loaded'</span>] <span class="cb1xz">=</span> <span class="ct35c">len</span>(<span class="ct35c">unique</span>)
         
-        return stats
-```
+        <span class="cd909">return</span> <span class="ct35c">stats</span>
+</code></pre>
 
 ---
 
@@ -431,25 +422,24 @@ class ETLPipeline:
 
 Track these metrics to catch issues early:
 
-```python
-class PipelineMonitor:
-    def track_metrics(self, stats: dict):
-        metrics = {
-            'extraction_rate': stats['extracted'] / stats['total'],
-            'validation_rate': stats['validated'] / stats['extracted'],
-            'deduplication_rate': stats['deduplicated'] / stats['validated'],
-            'error_rate': len(stats['errors']) / stats['total']
+<pre class="cgr7g c2bb0 ca9r6 cx6ng c9xwx cme8e cmy5q"><code class="c4j9y"><span class="cd909">class</span> <span class="ct35c">PipelineMonitor</span>:
+    <span class="cd909">def</span> <span class="ct35c">track_metrics</span>(<span class="cd909">self</span>, <span class="ct35c">stats</span>: <span class="ct35c">dict</span>):
+        <span class="ct35c">metrics</span> <span class="cb1xz">=</span> {
+            <span class="cuwxp">'extraction_rate'</span>: <span class="ct35c">stats</span>[<span class="cuwxp">'extracted'</span>] <span class="cb1xz">/</span> <span class="ct35c">stats</span>[<span class="cuwxp">'total'</span>],
+            <span class="cuwxp">'validation_rate'</span>: <span class="ct35c">stats</span>[<span class="cuwxp">'validated'</span>] <span class="cb1xz">/</span> <span class="ct35c">stats</span>[<span class="cuwxp">'extracted'</span>],
+            <span class="cuwxp">'deduplication_rate'</span>: <span class="ct35c">stats</span>[<span class="cuwxp">'deduplicated'</span>] <span class="cb1xz">/</span> <span class="ct35c">stats</span>[<span class="cuwxp">'validated'</span>],
+            <span class="cuwxp">'error_rate'</span>: <span class="ct35c">len</span>(<span class="ct35c">stats</span>[<span class="cuwxp">'errors'</span>]) <span class="cb1xz">/</span> <span class="ct35c">stats</span>[<span class="cuwxp">'total'</span>]
         }
         
-        # Alert on anomalies
-        if metrics['error_rate'] > 0.05:  # 5% error rate
-            alert(f"High error rate: {metrics['error_rate']:.2%}")
+        <span class="cd909"># Alert on anomalies</span>
+        <span class="cd909">if</span> <span class="ct35c">metrics</span>[<span class="cuwxp">'error_rate'</span>] <span class="cb1xz">&gt;</span> <span class="cuwxp">0.05</span>:  <span class="cd909"># 5% error rate</span>
+            <span class="ct35c">alert</span>(<span class="cuwxp">f"High error rate: {metrics['error_rate']:.2%}"</span>)
         
-        if metrics['extraction_rate'] < 0.80:  # <80% extraction success
-            alert(f"Low extraction rate: {metrics['extraction_rate']:.2%}")
+        <span class="cd909">if</span> <span class="ct35c">metrics</span>[<span class="cuwxp">'extraction_rate'</span>] <span class="cb1xz">&lt;</span> <span class="cuwxp">0.80</span>:  <span class="cd909"># &lt;80% extraction success</span>
+            <span class="ct35c">alert</span>(<span class="cuwxp">f"Low extraction rate: {metrics['extraction_rate']:.2%}"</span>)
         
-        return metrics
-```
+        <span class="cd909">return</span> <span class="ct35c">metrics</span>
+</code></pre>
 
 **Key metrics to track:**
 - Extraction success rate (target: >90%)
