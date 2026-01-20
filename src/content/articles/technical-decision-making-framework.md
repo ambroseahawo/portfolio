@@ -13,6 +13,8 @@ When a client asked us to choose between microservices and a monolith for their 
 
 After making 50+ architecture decisions across production systems, I've seen teams waste months on wrong choices because they lacked a systematic approach. Here's the framework that's helped us make better decisions faster.
 
+![Technical Decision-Making Framework](/images/technical-decision-making-framework.jpg)
+
 ## The Problem: Why Technical Decisions Fail
 
 Most teams make architecture decisions based on:
