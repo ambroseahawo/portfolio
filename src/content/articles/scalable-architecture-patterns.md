@@ -9,7 +9,7 @@ category: backend-architecture
 tags: ["System Design", "Architecture Patterns", "Scalability", "Event-Driven Architecture", "Caching", "Database Scaling", "API Gateway"]
 ---
 
-When a client's e-commerce platform hit 100K daily users, their monolithic API started failing under load. Response times jumped from 200ms to 5 seconds, and database connections maxed out. We didn't rebuild everything. Instead, we applied targeted architecture patterns that increased throughput by 10x without a full rewrite.
+An e-commerce platform processing 100K daily users saw API response times jump from 200ms to 5 seconds. Database connections maxed out at 500 concurrent connections. The monolith couldn't scale. Instead of rebuilding, we applied targeted architecture patterns: event-driven processing, multi-layer caching, and read replicas. Throughput increased 10x without a full rewrite.
 
 After scaling 20+ systems from startup to enterprise, I've seen the same bottlenecks repeat: synchronous processing, database overload, and missing caching layers. Here are the architecture patterns that actually work at scale.
 
