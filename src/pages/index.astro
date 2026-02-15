@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content"
-import ArticlesList from "../components/ArticlesList.astro"
+import ArticlesListInfinite from "../components/ArticlesListInfinite.astro"
 import FeaturedProjects from "../components/FeaturedProjects.astro"
 import Tabs from "../components/Tabs.astro"
 import Tutorials from "../components/Tutorials.astro"
@@ -52,7 +52,11 @@ if (sortedTutorials.length > 0)
 
           <!-- All articles tab -->
           <div class="tab-content" data-tab="all">
-            <ArticlesList articles={sortedArticles} showCategory={true} />
+            <ArticlesListInfinite
+              articles={sortedArticles}
+              showCategory={true}
+              tabId="all"
+            />
           </div>
 
           <!-- Category tabs -->
@@ -64,9 +68,10 @@ if (sortedTutorials.length > 0)
               )
               return (
                 <div class="tab-content hidden" data-tab={tab.id}>
-                  <ArticlesList
+                  <ArticlesListInfinite
                     articles={categoryArticles}
                     showCategory={false}
+                    tabId={tab.id}
                   />
                 </div>
               )

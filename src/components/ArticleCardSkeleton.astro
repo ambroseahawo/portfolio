@@ -1,0 +1,82 @@
+---
+// Exact structure of ArticleCard.astro with placeholder elements for shimmer only
+---
+
+<article class="article-card-skeleton cg3vi crdpf c8z7y c3bdg" aria-hidden="true">
+  <div class="c9noy cfwvb">
+    <div
+      class="skeleton-block c906c cr6xl c8c2x c9xwx ccj8i co6sp c5zj3"
+      style="width: 88px; height: 88px; flex-shrink: 0;"
+    ></div>
+    <div class="skeleton-content">
+      <div class="c2bb0 cd99g ck5r6 c0kco">
+        <span class="skeleton-inline skeleton-meta"></span>
+      </div>
+      <h3 class="cpynq c670g c5rvt c0kco">
+        <span class="skeleton-inline skeleton-title"></span>
+        <span class="skeleton-inline skeleton-title"></span>
+      </h3>
+      <div class="cfwvb">
+        <div class="cxslc c2bb0 cme8e c4a0m">
+          <span class="skeleton-inline skeleton-excerpt"></span>
+          <span class="skeleton-inline skeleton-excerpt"></span>
+          <span class="skeleton-inline skeleton-excerpt"></span>
+        </div>
+        <span
+          class="skeleton-block cfup8 c5a0p chugl csb3e c86uy cw2lf cpnf3 cgej2"
+          style="display: inline-flex; width: 14px; height: 12px; flex-shrink: 0;"
+          aria-hidden="true"
+        ></span>
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .article-card-skeleton .skeleton-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .article-card-skeleton .skeleton-meta {
+    display: block;
+    width: 100%;
+    height: 1em;
+  }
+  .article-card-skeleton .skeleton-title {
+    display: block;
+    width: 100%;
+    height: 1.25em;
+    margin-top: 0.5rem;
+  }
+  .article-card-skeleton .skeleton-title:first-of-type {
+    margin-top: 0;
+  }
+  .article-card-skeleton .skeleton-excerpt {
+    display: block;
+    width: 100%;
+    height: 1em;
+    margin-top: 0.25rem;
+  }
+  .article-card-skeleton .skeleton-excerpt:first-of-type {
+    margin-top: 0.5rem;
+  }
+  .article-card-skeleton .skeleton-block,
+  .article-card-skeleton .skeleton-inline {
+    background: linear-gradient(
+      90deg,
+      var(--skeleton-from, #e5e7eb) 0%,
+      var(--skeleton-to, #f3f4f6) 50%,
+      var(--skeleton-from, #e5e7eb) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.2s ease-in-out infinite;
+    border-radius: 0.25rem;
+  }
+  .article-card-skeleton .skeleton-block.c906c {
+    border-radius: 0.5rem;
+  }
+  @keyframes skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+</style>

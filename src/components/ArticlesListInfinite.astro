@@ -1,0 +1,282 @@
+---
+import type { CollectionEntry } from "astro:content"
+import ArticleCard from "./ArticleCard.astro"
+import ArticleCardSkeleton from "./ArticleCardSkeleton.astro"
+import { getCategoryLabel } from "../data/articleCategories"
+
+const BATCH_SIZE = 3
+
+interface Props {
+  articles: CollectionEntry<"articles">[]
+  showCategory?: boolean
+  tabId: string
+}
+
+const { articles, showCategory = false, tabId } = Astro.props
+
+const initialBatch = articles.slice(0, BATCH_SIZE)
+
+// Serialize for client: only what we need to render more cards
+const serialized = JSON.stringify(
+  articles.map((a) => ({
+    title: a.data.title,
+    date: a.data.publishedAt.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    }),
+    image: a.data.coverImage,
+    excerpt: a.data.excerpt,
+    slug: a.slug,
+    category: a.data.category,
+    categoryLabel: a.data.category ? getCategoryLabel(a.data.category) : "",
+    showCategory,
+  }))
+)
+---
+
+<div
+  class="articles-infinite-root"
+  data-tab-id={tabId}
+  data-articles={serialized}
+  data-batch-size={BATCH_SIZE}
+>
+  <div class="articles-infinite-container">
+    <!-- Initial batch (static) -->
+    <div class="articles-batch">
+      {
+        initialBatch.map((article) => (
+          <ArticleCard
+            title={article.data.title}
+            date={article.data.publishedAt.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+            image={article.data.coverImage}
+            excerpt={article.data.excerpt}
+            slug={article.slug}
+            category={article.data.category}
+            tags={article.data.tags}
+            showCategory={showCategory}
+          />
+        ))
+      }
+    </div>
+
+    <!-- Appended batches (client-rendered) -->
+    <div class="articles-more"></div>
+
+    <!-- Skeleton for next batch only (below existing content, hidden by default) -->
+    <div class="articles-loading hidden" role="status" aria-label="Loading more articles">
+      <ArticleCardSkeleton />
+      <ArticleCardSkeleton />
+      <ArticleCardSkeleton />
+    </div>
+
+    <!-- Load more button (hidden when no more articles) -->
+    <div class="load-more-wrap" data-tab-id={tabId}>
+      <button type="button" class="load-more-btn" aria-label="Load more articles">
+        <span class="load-more-text">Load more</span>
+        <span class="load-more-arrow" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .articles-infinite-root {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .articles-infinite-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .articles-batch,
+  .articles-more {
+    display: flex;
+    flex-direction: column;
+  }
+  .articles-more .article-card-reveal {
+    animation: articleReveal 0.4s ease-out forwards;
+  }
+  .articles-loading {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .articles-loading.hidden {
+    display: none !important;
+  }
+  .load-more-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 0;
+  }
+  .load-more-wrap.hidden {
+    display: none !important;
+  }
+  .load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    padding: 0.5rem 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+  .load-more-btn:hover {
+    opacity: 0.8;
+  }
+  .load-more-arrow {
+    display: inline-flex;
+    animation: loadMoreArrowBounce 1.2s ease-in-out infinite;
+  }
+  @keyframes loadMoreArrowBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+  @keyframes articleReveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  function initLoadMore() {
+    const roots = document.querySelectorAll(".articles-infinite-root")
+    if (!roots.length) return
+
+    function escapeHtml(str: string): string {
+      const div = document.createElement("div")
+      div.textContent = str
+      return div.innerHTML
+    }
+
+    type ArticlePayload = {
+      title: string
+      date: string
+      image: string
+      excerpt: string
+      slug: string
+      category?: string
+      categoryLabel?: string
+      showCategory?: boolean
+    }
+    function renderCard(article: ArticlePayload): string {
+      const categoryLabel = article.categoryLabel ?? ""
+      const categoryPart =
+        article.category && article.showCategory
+          ? `<span class="chugl cme8e"> • </span><span class="cxslc c2bb0 cme8e" style="text-transform: none;">${escapeHtml(categoryLabel)}</span>`
+          : ""
+      return `
+        <article class="cg3vi crdpf c8z7y c3bdg article-card-reveal">
+          <div class="c9noy cfwvb">
+            <img class="c906c cr6xl c8c2x c9xwx ccj8i co6sp c5zj3" src="${escapeHtml(article.image)}" width="88" height="88" alt="${escapeHtml(article.title)}" />
+            <div>
+              <div class="c2bb0 cd99g ck5r6 c0kco">
+                <span class="chugl">—</span>${escapeHtml(article.date)}${categoryPart}
+              </div>
+              <h3 class="cpynq c670g c5rvt c0kco">
+                <a class="cfsb7 c2ers cofz6 cubqj cq25t cegle chlgd cdaqi c3ntq csd7h cdie3 c4ezg c8xm0 c6esp cofma cz5kb c5c77 cn2yf" href="/blueprints/${escapeHtml(article.slug)}">${escapeHtml(article.title)}</a>
+              </h3>
+              <div class="cfwvb">
+                <div class="cxslc c2bb0 cme8e c4a0m">${escapeHtml(article.excerpt)}</div>
+                <a class="cfup8 c5a0p chugl csb3e c86uy cw2lf cpnf3 cgej2" href="/blueprints/${escapeHtml(article.slug)}" tabindex="-1">
+                  <svg class="cqlhq cjnrq cofma chtu4" xmlns="http://www.w3.org/2000/svg" width="14" height="12">
+                    <path d="M9.586 5 6.293 1.707 7.707.293 13.414 6l-5.707 5.707-1.414-1.414L9.586 7H0V5h9.586Z"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      `
+    }
+
+    function loadNextBatch(root: Element) {
+      if (root.getAttribute("data-loading") === "true") return
+
+      const allJson = root.getAttribute("data-articles")
+      const batchSize = parseInt(root.getAttribute("data-batch-size") || "3", 10)
+      if (!allJson) return
+
+      let articles: ArticlePayload[] = []
+      try {
+        articles = JSON.parse(allJson)
+      } catch (_) {
+        return
+      }
+
+      const container = root.querySelector(".articles-more")
+      const loadingEl = root.querySelector(".articles-loading")
+      const loadMoreWrap = root.querySelector(".load-more-wrap")
+      if (!container || !loadingEl || !loadMoreWrap) return
+
+      const alreadyRendered = root.querySelectorAll(".articles-batch article, .articles-more article").length
+      const start = alreadyRendered
+      if (start >= articles.length) {
+        loadMoreWrap.classList.add("hidden")
+        return
+      }
+
+      const end = Math.min(start + batchSize, articles.length)
+      const batch = articles.slice(start, end)
+      loadingEl.classList.remove("hidden")
+      root.setAttribute("data-loading", "true")
+
+      const delay = 400
+      setTimeout(() => {
+        loadingEl.classList.add("hidden")
+        root.removeAttribute("data-loading")
+        const html = batch.map(renderCard).join("")
+        container.insertAdjacentHTML("beforeend", html)
+        if (start + batch.length >= articles.length) {
+          loadMoreWrap.classList.add("hidden")
+        }
+      }, delay)
+    }
+
+    roots.forEach((root) => {
+      const loadMoreWrap = root.querySelector(".load-more-wrap")
+      const btn = root.querySelector(".load-more-btn")
+      if (!loadMoreWrap || !btn) return
+
+      const allJson = root.getAttribute("data-articles")
+      const batchSize = parseInt(root.getAttribute("data-batch-size") || "3", 10)
+      if (!allJson) return
+      let articles: ArticlePayload[] = []
+      try {
+        articles = JSON.parse(allJson)
+      } catch (_) {
+        loadMoreWrap.classList.add("hidden")
+        return
+      }
+      if (articles.length <= batchSize) {
+        loadMoreWrap.classList.add("hidden")
+        return
+      }
+
+      btn.addEventListener("click", () => loadNextBatch(root))
+    })
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLoadMore)
+  } else {
+    initLoadMore()
+  }
+</script>
